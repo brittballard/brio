@@ -17,6 +17,6 @@ test:
 staging:
   adapter: mysql
   encoding: utf8
-  database: brio_development
+  database: brio_staging
   username: root
   password: LastHope
