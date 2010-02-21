@@ -1,2 +1,47 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
+// utility methods
+
+jQuery.ajaxSetup({
+	'beforeSend': function(xhr) {
+	        xhr.setRequestHeader("Accept", "text/javascript")
+	    }
+})
+
+jQuery.extend({
+	delete_post: function( url, data, callback, type ) {
+		// shift arguments if data argument was omited
+		if ( jQuery.isFunction( data ) ) {
+			type = type || callback;
+			callback = data;
+			data = {};
+		}
+
+		return jQuery.ajax({
+			type: "DELETE",
+			url: url,
+			data: data,
+			success: callback,
+			dataType: type
+		});
+	}
+})
+
+jQuery.extend({
+	put_post: function( url, data, callback, type ) {
+		// shift arguments if data argument was omited
+		if ( jQuery.isFunction( data ) ) {
+			type = type || callback;
+			callback = data;
+			data = {};
+		}
+
+		return jQuery.ajax({
+			type: "PUT",
+			url: url,
+			data: data,
+			success: callback,
+			dataType: type
+		});
+	}
+})
+
+// end utility methods
