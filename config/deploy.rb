@@ -8,6 +8,5 @@ set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 set :user, "deploy"
 
-before "deploy", "deploy:migrate"
 before "deploy", "deploy:check"
-
+after "deploy", "deploy:migrate"
