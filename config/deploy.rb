@@ -5,7 +5,6 @@ set :keep_releases, false
 set :use_sudo, false
 
 set :scm, :git
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 set :user, "deploy"
 
 before "deploy", "deploy:check"
