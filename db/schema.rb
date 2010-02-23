@@ -18,6 +18,12 @@ ActiveRecord::Schema.define(:version => 20100223032522) do
     t.string   "event_state", :null => false
   end
 
+  create_table "events_users", :id => false, :force => true do |t|
+    t.integer "event_id"
+    t.integer "user_id"
+    t.string  "type"
+  end
+
   create_table "registrants", :id => false, :force => true do |t|
     t.integer "event_id"
     t.integer "user_id"
