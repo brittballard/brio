@@ -11,12 +11,29 @@ class Event < ActiveRecord::Base
   aasm_initial_state :setup
   
   aasm_state :setup
-  aasm_state :active
+  aasm_state :registration_open
+  aasm_state :registration_closed
   aasm_state :running
   aasm_state :complete
   
-  aasm_event :activate do
-    transitions :to => :active, :from => [:setup], :guard => :is_complete?
+  aasm_event :open_registration do
+    transitions :to => :registration_open, :from => [:setup, :registration_closed], :guard => :is_complete?
+  end
+  
+  aasm_event :return_to_setup do
+    transitions :to => :setup, :from => [:registration_open]
+  end
+  
+  aasm_event :close_registration do
+    transitions :to => :registration_closed, :from => [:registration_open]
+  end
+  
+  aasm_event :run do
+    transitions :to => :running, :from => [:registration_closed]
+  end
+  
+  aasm_event :complete do
+    transitions :to => :complete, :from => [:running]
   end
   
   def is_complete?
