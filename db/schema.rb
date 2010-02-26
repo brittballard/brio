@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100225042614) do
+ActiveRecord::Schema.define(:version => 20100226034212) do
 
   create_table "events", :force => true do |t|
     t.string   "title"
@@ -23,9 +23,27 @@ ActiveRecord::Schema.define(:version => 20100225042614) do
     t.datetime "updated_at"
     t.string   "description",         :null => false
     t.integer  "number_of_volnteers", :null => false
-    t.integer  "location_id"
-    t.integer  "event_id"
+    t.integer  "location_id",         :null => false
+    t.integer  "event_id",            :null => false
   end
+
+  add_index "jobs", ["event_id"], :name => "index_jobs_on_event_id"
+
+  create_table "locations", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "map_url",                                                   :null => false
+    t.string   "title",       :limit => 50,                                 :null => false
+    t.string   "description", :limit => 200,                                :null => false
+    t.integer  "event_id",                                                  :null => false
+    t.integer  "job_id",                                                    :null => false
+    t.integer  "lat",         :limit => 10,  :precision => 10, :scale => 0
+    t.integer  "long",        :limit => 10,  :precision => 10, :scale => 0
+  end
+
+  add_index "locations", ["event_id", "job_id"], :name => "index_locations_on_event_id_and_job_id"
+  add_index "locations", ["event_id"], :name => "index_locations_on_event_id"
+  add_index "locations", ["job_id"], :name => "index_locations_on_job_id"
 
   create_table "registrants", :id => false, :force => true do |t|
     t.integer "event_id"
