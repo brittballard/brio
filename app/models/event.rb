@@ -1,5 +1,10 @@
 class Event < ActiveRecord::Base
   include AASM
+  validates_presence_of :title
+  validates_presence_of :start_date_time
+  validates_presence_of :end_date_time
+  validates_presence_of :registration_start_date_time
+  validates_presence_of :registration_end_date_time
   
   has_and_belongs_to_many :registrants, :class_name => 'User'
   has_and_belongs_to_many :volunteers, :class_name => 'User'

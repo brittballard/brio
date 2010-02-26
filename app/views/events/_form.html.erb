@@ -1,0 +1,37 @@
+<% form_for(@event) do |f| %>
+  <ul>
+    <li>
+      <%= f.label :title %>
+    </li>
+    <li>
+      <%= f.text_field :title %>
+    </li>
+    <li>
+      <%= f.label :start_date_time %>
+    </li>
+    <li>
+      <%= f.text_field :start_date_time %>
+    </li>
+    <li>
+      <%= f.label :end_date_time %>
+    </li>
+    <li>
+      <%= f.text_field :end_date_time %>
+    </li>
+    <li>
+      <%= f.label :registration_start_date_time %>
+    </li>
+    <li>
+      <%= f.text_field :registration_start_date_time %>
+    </li>
+    <li>
+      <%= f.label :registration_end_date_time %>
+    </li>
+    <li>
+      <%= f.text_field :registration_end_date_time %>
+    </li>
+    <li>
+      <%= f.submit :create %>
+    </li>
+  </ul>
+<% end %>
