@@ -6,6 +6,12 @@ class Event < ActiveRecord::Base
 
   validates_presence_of :title
   
+  named_scope :setup, :conditions => {:event_state => 'setup'}
+  named_scope :registration_open, :conditions => {:event_state => 'registration_open'}
+  named_scope :registration_closed, :conditions => {:event_state => 'registration_closed'}
+  named_scope :running, :conditions => {:event_state => 'running'}
+  named_scope :complete, :conditions => {:event_state => 'complete'}
+    
   # aasm things
   aasm_column :event_state
   aasm_initial_state :setup
@@ -30,7 +36,7 @@ class Event < ActiveRecord::Base
   
   aasm_event :run do
     transitions :to => :running, :from => [:registration_closed]
-  end
+  end   
   
   aasm_event :complete do
     transitions :to => :complete, :from => [:running]
