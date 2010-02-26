@@ -1,0 +1,17 @@
+common: &common
+  google_maps_api: BQIAAAADhbQedkWpPe0SxJ_X66u9BROKaCulSnnF_AK_iPtfBNn2XR2xxRwZkrXt0kB89GR-yBBJ2JNpGxyZQ
+
+development:
+  <<: *common
+
+test:
+  <<: *common
+
+production:
+  <<: *common
+  key:
+    subkey: "nested"
+
+# Examples of useage
+# AppConfig.key => "value"      # in development mode
+# AppConfig.key[:subkey] => "nested"  # in production mode (also AppConfig.key['subkey'])

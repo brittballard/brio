@@ -1,7 +1,7 @@
 log/*
-config/app.yml
 config/database.yml
 *~
 .project
 .buildpath
 .loadpath
+config/environments/development.rb
