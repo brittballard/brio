@@ -9,13 +9,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100226034212) do
+ActiveRecord::Schema.define(:version => 20100226055620) do
 
   create_table "events", :force => true do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "event_state", :null => false
+    t.string   "event_state",                  :null => false
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "registration_start_date_time"
+    t.datetime "registration_end_date_time"
   end
 
   create_table "jobs", :force => true do |t|
@@ -25,6 +29,8 @@ ActiveRecord::Schema.define(:version => 20100226034212) do
     t.integer  "number_of_volnteers", :null => false
     t.integer  "location_id",         :null => false
     t.integer  "event_id",            :null => false
+    t.datetime "start_date"
+    t.datetime "end_date"
   end
 
   add_index "jobs", ["event_id"], :name => "index_jobs_on_event_id"

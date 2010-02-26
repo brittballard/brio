@@ -1,4 +1,9 @@
 class EventsController < ApplicationController
+
+  def show
+    @event = Event.find(params[:id])
+  end
+
   def index
     @events = Event.all
     
@@ -18,10 +23,18 @@ class EventsController < ApplicationController
   end
   
   def new
-    
+    @event = Event.new
   end
   
   def create
+    @event = @event.new(params[:event])
     
+    if @event.save
+      flash[:notice] = "Event created succesfully."
+      redirec_to @event
+    else
+      flash[:error] = "Error creating event."
+      redner :action => new
+    end
   end
 end
