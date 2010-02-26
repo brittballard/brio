@@ -12,8 +12,8 @@ namespace :db do
       username: #{user}
       password: #{password}
 
-    development:
-      database: #{application}_dev
+    staging:
+      database: #{application}_staging
       <<: *base
 
     test:
@@ -24,8 +24,7 @@ namespace :db do
       database: #{application}_prod
       <<: *base
     EOF
-
-    run "mkdir -p #{shared_path}/config" 
+ 
     put db_config.result, "#{shared_path}/config/database.yml" 
   end
 
