@@ -1,5 +1,4 @@
 log/*
-config/app.yml
 config/database.yml
 *~
 .project
