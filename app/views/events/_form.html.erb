@@ -7,31 +7,42 @@
       <%= f.text_field :title %>
     </li>
     <li>
-      <%= f.label :start_date_time %>
+      <%= f.label :start_date %>
     </li>
     <li>
-      <%= f.text_field :start_date_time %>
+      <%= f.text_field :start_date, :id => 'start_date_picker' %>
     </li>
     <li>
-      <%= f.label :end_date_time %>
+      <%= f.label :start_time %>
     </li>
     <li>
-      <%= f.text_field :end_date_time %>
+      <%= select_time(Time.now) %>
     </li>
     <li>
-      <%= f.label :registration_start_date_time %>
+      <%= f.label :end_date %>
     </li>
     <li>
-      <%= f.text_field :registration_start_date_time %>
+      <%= f.text_field :end_date, :id => 'end_date_picker' %>
     </li>
     <li>
-      <%= f.label :registration_end_date_time %>
+      <%= f.label :registration_start_date %>
     </li>
     <li>
-      <%= f.text_field :registration_end_date_time %>
+      <%= f.text_field :registration_start_date, :id => 'registration_start_date_picker' %>
+    </li>
+    <li>
+      <%= f.label :registration_end_date %>
+    </li>
+    <li>
+      <%= f.text_field :registration_end_date, :id => 'registration_end_date_picker' %>
     </li>
     <li>
       <%= f.submit :create %>
     </li>
   </ul>
 <% end %>
+<script>
+  $(document).ready(function() {
+    register_date_picker(['start_date_picker', 'end_date_picker', 'registration_start_date_picker', 'registration_end_date_picker'])
+  })
+</script>

@@ -9,17 +9,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100227051056) do
+ActiveRecord::Schema.define(:version => 20100227061011) do
 
   create_table "events", :force => true do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "event_state",                  :null => false
-    t.datetime "registration_start_date_time"
-    t.datetime "registration_end_date_time"
-    t.datetime "start_date_time"
-    t.datetime "end_date_time"
+    t.string   "event_state",                           :null => false
+    t.datetime "registration_start_date"
+    t.datetime "registration_end_date"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.string   "time_zone",               :limit => 40
+    t.time     "start_time"
+    t.time     "end_time"
+    t.time     "registration_end_time"
+    t.time     "registration_start_time"
   end
 
   create_table "events_jobs_volunteers", :id => false, :force => true do |t|

@@ -44,4 +44,10 @@ jQuery.extend({
 	}
 })
 
+function register_date_picker(ids){
+	for(var index in ids){
+		$('#' + ids[index]).datepicker();
+	}
+}
+
 // end utility methods
