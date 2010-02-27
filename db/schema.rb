@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100226061042) do
+ActiveRecord::Schema.define(:version => 20100227051056) do
 
   create_table "events", :force => true do |t|
     t.string   "title"
@@ -21,6 +21,24 @@ ActiveRecord::Schema.define(:version => 20100226061042) do
     t.datetime "start_date_time"
     t.datetime "end_date_time"
   end
+
+  create_table "events_jobs_volunteers", :id => false, :force => true do |t|
+    t.integer "event_id", :null => false
+    t.integer "user_id",  :null => false
+    t.integer "job_id",   :null => false
+  end
+
+  add_index "events_jobs_volunteers", ["event_id"], :name => "index_events_jobs_volunteers_on_event_id"
+  add_index "events_jobs_volunteers", ["job_id"], :name => "index_events_jobs_volunteers_on_job_id"
+  add_index "events_jobs_volunteers", ["user_id"], :name => "index_events_jobs_volunteers_on_user_id"
+
+  create_table "events_registrants", :id => false, :force => true do |t|
+    t.integer "event_id", :null => false
+    t.integer "user_id",  :null => false
+  end
+
+  add_index "events_registrants", ["event_id"], :name => "index_events_registrants_on_event_id"
+  add_index "events_registrants", ["user_id"], :name => "index_events_registrants_on_user_id"
 
   create_table "jobs", :force => true do |t|
     t.datetime "created_at"
@@ -51,11 +69,6 @@ ActiveRecord::Schema.define(:version => 20100226061042) do
   add_index "locations", ["event_id"], :name => "index_locations_on_event_id"
   add_index "locations", ["job_id"], :name => "index_locations_on_job_id"
 
-  create_table "registrants", :id => false, :force => true do |t|
-    t.integer "event_id"
-    t.integer "user_id"
-  end
-
   create_table "users", :force => true do |t|
     t.string   "email",                              :null => false
     t.string   "crypted_password",                   :null => false
@@ -72,11 +85,6 @@ ActiveRecord::Schema.define(:version => 20100226061042) do
     t.string   "last_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "volunteers", :id => false, :force => true do |t|
-    t.integer "event_id"
-    t.integer "user_id"
   end
 
 end

@@ -6,8 +6,8 @@ class Event < ActiveRecord::Base
   validates_presence_of :registration_start_date_time
   validates_presence_of :registration_end_date_time
   
-  has_and_belongs_to_many :registrants, :class_name => 'User'
-  has_and_belongs_to_many :volunteers, :class_name => 'User'
+  has_and_belongs_to_many :registrants, :join_table => 'events_registrants', :class_name => 'User'
+  has_and_belongs_to_many :volunteers, :join_table => 'events_jobs_registrants', :class_name => 'User'
 
   validates_presence_of :title
   
