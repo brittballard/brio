@@ -1,15 +1,14 @@
 <table>
     <tr>
-        <th>Date</th>
         <th>Name</th>
-        <th>Location</th>
+        <th>Date</th>
     </tr>
     
     <% @events.each do |event| %>
     <tr>
-        <td>some date & time</td>
-        <td><%=h event.title %></td>
-        <td>some location</td>
+        
+        <td><%= link_to event.title, event %></td>
+        <td><%=h event.start_date%></td>
     </tr>
     <% end %>
 </table>
