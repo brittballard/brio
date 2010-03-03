@@ -1,0 +1,1 @@
+<%= select_tag("#{id}_hour", Array.new(12){|index| "<option>#{index + 1}</option>"}.join(''), :value => 10) %>:<%= select_tag("#{id}_miute", Array.new(60){|hour| "<option>#{hour.to_s.rjust(2, '0')}</option>"}.join('')) %> <%= select_tag("#{id}_period", "<option>AM</option><option>PM</option>") %>

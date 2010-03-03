@@ -9,22 +9,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100227061011) do
+ActiveRecord::Schema.define(:version => 20100303012944) do
 
   create_table "events", :force => true do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "event_state",                           :null => false
-    t.datetime "registration_start_date"
-    t.datetime "registration_end_date"
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.string   "time_zone",               :limit => 40
-    t.time     "start_time"
-    t.time     "end_time"
-    t.time     "registration_end_time"
-    t.time     "registration_start_time"
+    t.string   "event_state",                  :null => false
+    t.datetime "registration_start_date_time"
+    t.datetime "registration_end_date_time"
+    t.datetime "start_date_time",              :null => false
+    t.datetime "end_date_time",                :null => false
   end
 
   create_table "events_jobs_volunteers", :id => false, :force => true do |t|
@@ -75,14 +70,14 @@ ActiveRecord::Schema.define(:version => 20100227061011) do
   add_index "locations", ["job_id"], :name => "index_locations_on_job_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                              :null => false
-    t.string   "crypted_password",                   :null => false
-    t.string   "password_salt",                      :null => false
-    t.string   "persistence_token",                  :null => false
-    t.string   "single_access_token",                :null => false
-    t.string   "perishable_token",                   :null => false
-    t.integer  "login_count",         :default => 0, :null => false
-    t.integer  "failed_login_count",  :default => 0, :null => false
+    t.string   "email",                                            :null => false
+    t.string   "crypted_password",                                 :null => false
+    t.string   "password_salt",                                    :null => false
+    t.string   "persistence_token",                                :null => false
+    t.string   "single_access_token",                              :null => false
+    t.string   "perishable_token",                                 :null => false
+    t.integer  "login_count",                       :default => 0, :null => false
+    t.integer  "failed_login_count",                :default => 0, :null => false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
@@ -90,6 +85,7 @@ ActiveRecord::Schema.define(:version => 20100227061011) do
     t.string   "last_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "default_time_zone",   :limit => 40
   end
 
 end
