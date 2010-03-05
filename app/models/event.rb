@@ -1,10 +1,9 @@
 class Event < ActiveRecord::Base
   include AASM
+  
   validates_presence_of :title
   validates_presence_of :start_date_time
   validates_presence_of :end_date_time
-  validates_presence_of :registration_start_date_time
-  validates_presence_of :registration_end_date_time
   
   has_and_belongs_to_many :registrants, :join_table => 'events_registrants', :class_name => 'User'
   has_and_belongs_to_many :volunteers, :join_table => 'events_jobs_registrants', :class_name => 'User'
@@ -16,7 +15,12 @@ class Event < ActiveRecord::Base
   named_scope :registration_closed, :conditions => {:event_state => 'registration_closed'}
   named_scope :running, :conditions => {:event_state => 'running'}
   named_scope :complete, :conditions => {:event_state => 'complete'}
-    
+  
+  attr_accessor(:start_date, :start_hour, :start_minute,
+                :end_date, :end_hour, :end_minute,
+                :registration_start_date, :registration_start_hour, :registration_start_minute,
+                :registration_end_date, :registration_end_hour, :registration_end_minute)
+                
   # aasm things
   aasm_column :event_state
   aasm_initial_state :setup
@@ -46,10 +50,16 @@ class Event < ActiveRecord::Base
   aasm_event :complete do
     transitions :to => :complete, :from => [:running]
   end
+
+  def set_date_time(date_type)
+    self.send("#{date_type}_date_time=", DateTime.parse(self.send("#{date_type}_date") + ' ' + self.send("#{date_type}_hour") + ':' + self.send("#{date_type}_minute")))
+  end
+  
+  private
   
   def is_complete?
     # are all the fields ready to go
     return true
   end
-  
+    
 end

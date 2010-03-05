@@ -58,10 +58,12 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.new(params[:event])
-    if @event.save
+    event = Event.new(params[:event])
+    set_date_times(event)
+    
+    if event.save!
       flash[:notice] = "Event created succesfully."
-      redirect_to @event
+      redirect_to event
     else
       flash[:error] = "Error creating event."
       render :action => 'new'
@@ -82,6 +84,19 @@ class EventsController < ApplicationController
       flash[:error] = "Error updating event."
       render :action => 'edit'
     end
+  end
+
+  private
+
+  def set_date_times(event)
+    set_date_time(event, 'start')
+    set_date_time(event, 'end')
+    set_date_time(event, 'registration_start') if params[:event][:registration_start_date].present?
+    set_date_time(event, 'registration_end') if params[:event][:registration_end_date].present?
+  end
+
+  def set_date_time(event, date_type)
+    event.set_date_time(date_type)
   end
 
 end

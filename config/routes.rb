@@ -9,5 +9,5 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :user_session
   map.resources :sonars
 
-  map.root :controller => "user_sessions", :action => "new"
+  map.root :controller => "events"
 end
