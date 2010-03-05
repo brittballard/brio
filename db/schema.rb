@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100227061011) do
+ActiveRecord::Schema.define(:version => 20100305055223) do
 
   create_table "events", :force => true do |t|
     t.string   "title"
@@ -74,6 +74,15 @@ ActiveRecord::Schema.define(:version => 20100227061011) do
   add_index "locations", ["event_id"], :name => "index_locations_on_event_id"
   add_index "locations", ["job_id"], :name => "index_locations_on_job_id"
 
+  create_table "sonars", :force => true do |t|
+    t.datetime "date"
+    t.string   "company"
+    t.string   "contact"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email",                              :null => false
     t.string   "crypted_password",                   :null => false
@@ -90,6 +99,7 @@ ActiveRecord::Schema.define(:version => 20100227061011) do
     t.string   "last_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "user_state",                         :null => false
   end
 
 end

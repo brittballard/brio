@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :require_no_user, :only => [:new, :create]
+  before_filter :require_no_user, :only => [:new, :create, :add_to_event, :show]
   before_filter :require_user, :only => [:show, :edit, :update]
   
   def new
@@ -32,5 +32,21 @@ class UsersController < ApplicationController
     else
       render :action => :edit
     end
+  end
+  
+  def index
+    @event = Event.find_by_id(params[:event_id])
+    @users = User.all(:conditions => ["id = ?", params[:event_id]])
+  end
+  
+  def add_to_event
+    @event = Event.find_by_id(params[:event_id]) 
+    @user = User.new(params[:user])
+      if(@user.save)
+        flash[:notice] = "Account registered!"
+        event_users_url(@event)
+      else
+        add_to_event_users_url(@event)
+     end
   end
 end

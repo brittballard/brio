@@ -1,0 +1,18 @@
+Registrants for <%= @event.title %>
+
+<table>
+    <tr>
+        <th>Email</th>
+    </tr>
+    
+    <% @users.each do |user| %>
+    <tr>
+        <td><%=h user.email %></td>
+    </tr>
+    <% end %>
+</table>
+<ul>
+    <li>
+        <%= link_to "Enter new registrant", add_to_event_users_path(@event), :method => 'POST' %>
+    </li>
+</ul>
