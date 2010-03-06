@@ -1,0 +1,27 @@
+<table>
+  <tr>
+    <th>
+      Email
+    </th>
+    <th>
+      Default Time Zone
+    </th>
+    <th>
+      <%= link_to('New User', new_user_path) %>
+    </th>
+  </tr>
+  <% @users.each do |user| %>
+  <tr>
+    <td>
+      <%= user.email %>
+    </td>
+    <td>
+      <%= user.default_time_zone %>
+    </td>
+    <td>
+      <%= link_to('Edit', edit_user_path(user)) %>
+    <td>
+  </tr>
+  <% end %>
+</table>
+

@@ -2,6 +2,6 @@
  
 <% form_for @user, :url => account_path do |f| %>
   <%= f.error_messages %>
-  <%= render :partial => "form", :object => f %>
+  <%= render(:partial => "form", :locals => { :form => f } )%>
   <%= f.submit "Register" %>
 <% end %>
