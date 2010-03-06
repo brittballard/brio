@@ -15,6 +15,18 @@ class UserSessionsController < ApplicationController
       render :action => :new
     end
   end
+  
+  def login
+    @email = params[:username]
+    @password = params[:password]
+    @user_session = UserSession.new(:email => @email, :password => @password)
+    
+    if(@user_session.save)
+      return true
+    else
+      return false
+    end
+  end
 
   def destroy
     current_user_session.destroy
