@@ -9,17 +9,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100303012944) do
+ActiveRecord::Schema.define(:version => 20100305055223) do
 
   create_table "events", :force => true do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "event_state",                  :null => false
+    t.string   "event_state",                                :null => false
     t.datetime "registration_start_date_time"
     t.datetime "registration_end_date_time"
-    t.datetime "start_date_time",              :null => false
-    t.datetime "end_date_time",                :null => false
+    t.datetime "start_date_time",                            :null => false
+    t.datetime "end_date_time",                              :null => false
+    t.string   "time_zone",                    :limit => 40
   end
 
   create_table "events_jobs_volunteers", :id => false, :force => true do |t|
@@ -69,6 +70,15 @@ ActiveRecord::Schema.define(:version => 20100303012944) do
   add_index "locations", ["event_id"], :name => "index_locations_on_event_id"
   add_index "locations", ["job_id"], :name => "index_locations_on_job_id"
 
+  create_table "sonars", :force => true do |t|
+    t.datetime "date"
+    t.string   "company"
+    t.string   "contact"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email",                                            :null => false
     t.string   "crypted_password",                                 :null => false
@@ -85,6 +95,7 @@ ActiveRecord::Schema.define(:version => 20100303012944) do
     t.string   "last_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "user_state",                                       :null => false
     t.string   "default_time_zone",   :limit => 40
   end
 
