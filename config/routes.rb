@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resources :users, :collection => { :add_to_event => [:post] }, :path_prefix => "/events/:event_id", :only => [:add_to_event]
   #map.resources :users, :path_prefix => '/events/:event_id', :only => [:add_to_event]
-  map.resource :user_session, :collection => { :login => [:post] }
+  map.resource :user_session
   map.resources :sonars
 
   map.root :controller => "events"
