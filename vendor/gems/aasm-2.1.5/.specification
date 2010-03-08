@@ -128,3 +128,4 @@ test_files:
 - test/unit/event_test.rb
 - test/unit/state_test.rb
 - test/unit/state_transition_test.rb
+
