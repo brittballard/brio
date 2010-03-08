@@ -7,8 +7,6 @@ class Event < ActiveRecord::Base
   
   has_and_belongs_to_many :registrants, :join_table => 'events_registrants', :class_name => 'User'
   has_and_belongs_to_many :volunteers, :join_table => 'events_jobs_registrants', :class_name => 'User'
-
-  validates_presence_of :title
   
   named_scope :setup, :conditions => {:event_state => 'setup'}
   named_scope :registration_open, :conditions => {:event_state => 'registration_open'}
@@ -53,6 +51,11 @@ class Event < ActiveRecord::Base
 
   def set_date_time(date_type)
     self.send("#{date_type}_date_time=", DateTime.parse(self.send("#{date_type}_date") + ' ' + self.send("#{date_type}_hour") + ':' + self.send("#{date_type}_minute")))
+  end
+  
+  def validate
+    errors.add(:start_date_time, "must be before end date.") if start_date >= end_date
+    errors.add(:registration_start_date_time, "must be before registration end date") if registration_start_date.present? && registration_end_date.present? && registration_start_date >= registration_end_date
   end
   
   private

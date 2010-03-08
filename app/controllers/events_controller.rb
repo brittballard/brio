@@ -58,12 +58,12 @@ class EventsController < ApplicationController
   end
 
   def create
-    event = Event.new(params[:event])
-    set_date_times(event)
+    @event = Event.new(params[:event])
+    set_date_times(@event)
     
-    if event.save!
+    if @event.save
       flash[:notice] = "Event created succesfully."
-      redirect_to event
+      redirect_to @event
     else
       flash[:error] = "Error creating event."
       render :action => 'new'
