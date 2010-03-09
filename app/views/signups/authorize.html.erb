@@ -1,0 +1,22 @@
+<h1>You are registering for this event, wanker</h1>
+<ul>
+    <!-- Make a partial out of the event view for information about the event and the disclaimer  -->
+    <li>
+        Event name: <%= @event.title %>
+    </li>
+    <li>
+        Disclaimer: 
+        <div style="height: 300px; width: 200px; overflow: auto; overflow-y: hidden; border-style: solid; border-width: 1px; border-color: black;">
+            Some disclaimer text for you freakin nubs
+        </div>
+    </li>
+    <li>
+        Verify your age here: 
+    </li>
+    <li>
+        Do you agree to these terms?
+    </li>
+    <li>
+        <%= button_to "Register", :action => "go_register" %>
+    </li>
+</ul>
