@@ -1,18 +1,27 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
-	<head>
-		<title><%= h(yield(:title) || "Untitled") %></title>
-		<%= stylesheet_link_tag('brio', :media => 'all') %>
-		<%= javascript_include_tag('jquery', 'jquery.ui.core', 'jquery.ui.datepicker', 'application') %>
-	</head>
-	<body>
-		<div id="container" style="margin-top: 25px;">
-			<%- flash.each do |name, msg| -%>
-				<%= content_tag :div, msg, :id => "flash_#{name}" %>
-			<%- end -%>
-
-			<%= yield %>
-		</div>
-	</body>
+  <head>
+    <title><%= h(yield(:title) || "Untitled") %></title>
+    <%= stylesheet_link_tag('brio', :media => 'all') %>
+    <%= javascript_include_tag('jquery', 'jquery.ui.core', 'jquery.ui.datepicker', 'application') %>
+  </head>
+  <body>
+    <div id="container" style="margin-top: 25px;">
+      <div id="header">
+        <div id="navigation">
+          navigation
+        </div>
+      </div>
+      <%- flash.each do |name, msg| -%>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <%- end -%>
+      <div id="body">
+        <%= yield %>
+      </div>
+      <div id="footer">
+        footer
+      </div>
+    </div>
+  </body>
 </html>
