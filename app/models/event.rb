@@ -54,16 +54,16 @@ class Event < ActiveRecord::Base
     self.send("#{date_type}_date_time=", DateTime.parse(self.send("#{date_type}_date") + ' ' + self.send("#{date_type}_hour") + ':' + self.send("#{date_type}_minute")))
   end
   
-  def validate
-    errors.add(:start_date_time, "must be before end date.") if start_date >= end_date
-    errors.add(:registration_start_date_time, "must be before registration end date") if registration_start_date.present? && registration_end_date.present? && registration_start_date >= registration_end_date
-  end
-  
   private
   
   def is_complete?
     # are all the fields ready to go
     return true
   end
-    
+
+  def validate
+    errors.add(:start_date_time, "must be before end date.") if start_date >= end_date
+    errors.add(:registration_start_date_time, "must be before registration end date") if registration_start_date.present? && registration_end_date.present? && registration_start_date >= registration_end_date
+  end
+
 end
