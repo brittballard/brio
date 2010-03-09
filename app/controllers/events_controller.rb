@@ -89,8 +89,8 @@ class EventsController < ApplicationController
   private
 
   def set_date_times(event)
-    set_date_time(event, 'start')
-    set_date_time(event, 'end')
+    set_date_time(event, 'start') if params[:event][:start_date].present?
+    set_date_time(event, 'end') if params[:event][:end_date].present?
     set_date_time(event, 'registration_start') if params[:event][:registration_start_date].present?
     set_date_time(event, 'registration_end') if params[:event][:registration_end_date].present?
   end

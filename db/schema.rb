@@ -9,18 +9,32 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100307041027) do
+ActiveRecord::Schema.define(:version => 20100309023630) do
 
   create_table "events", :force => true do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "event_state",                                :null => false
+    t.string   "event_state",                                                               :null => false
     t.datetime "registration_start_date_time"
     t.datetime "registration_end_date_time"
-    t.datetime "start_date_time",                            :null => false
-    t.datetime "end_date_time",                              :null => false
-    t.string   "time_zone",                    :limit => 40
+    t.datetime "start_date_time",                                                           :null => false
+    t.datetime "end_date_time",                                                             :null => false
+    t.integer  "registration_fee",             :limit => 10, :precision => 10, :scale => 0, :null => false
+    t.text     "description",                                                               :null => false
+    t.integer  "max_participants"
+    t.text     "disclaimer",                                                                :null => false
+    t.string   "address_line_1",                                                            :null => false
+    t.string   "address_line_2"
+    t.string   "city",                         :limit => 50,                                :null => false
+    t.string   "state",                        :limit => 2,                                 :null => false
+    t.string   "postal_code",                  :limit => 10,                                :null => false
+    t.integer  "parent_id"
+    t.integer  "minimum_age_to_register"
+    t.integer  "minimum_age_to_participate"
+    t.string   "time_zone",                    :limit => 40,                                :null => false
+    t.string   "latitude",                     :limit => 40
+    t.string   "longitude",                    :limit => 40
   end
 
   create_table "events_jobs_volunteers", :id => false, :force => true do |t|
@@ -86,8 +100,8 @@ ActiveRecord::Schema.define(:version => 20100307041027) do
     t.string   "last_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "user_state",                                       :null => false
     t.string   "default_time_zone",   :limit => 40
+    t.string   "user_state",                                       :null => false
   end
 
 end

@@ -1,9 +1,11 @@
 class Event < ActiveRecord::Base
   include AASM
   
-  validates_presence_of :title
-  validates_presence_of :start_date_time
-  validates_presence_of :end_date_time
+  validates_presence_of :title, :description, :start_date_time, :end_date_time, :address_line_1, :city, :state, :postal_code
+  validates_numericality_of :registration_fee
+  validates_numericality_of :minimum_age_to_participate, :minimum_age_to_register, :allow_nil => true
+  validates_format_of :latitude, :with => /\d+/, :allow_nil => true, :allow_blank => true
+  validates_format_of :longitude, :with => /\d+/, :allow_nil => true, :allow_blank => true
   
   has_and_belongs_to_many :registrants, :join_table => 'events_registrants', :class_name => 'User'
   has_and_belongs_to_many :volunteers, :join_table => 'events_jobs_registrants', :class_name => 'User'
@@ -62,7 +64,6 @@ class Event < ActiveRecord::Base
 
   def validate
     errors.add(:start_date_time, "must be before end date.") if start_date >= end_date
-    errors.add(:registration_start_date_time, "must be before registration end date") if registration_start_date.present? && registration_end_date.present? && registration_start_date >= registration_end_date
+    errors.add(:registration_start_date_time, "must be before registration end date") if registration_start_date.present? && registration_end_date.present? && registration_start_date_time >= registration_end_date_time
   end
-
 end
