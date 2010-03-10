@@ -2,6 +2,7 @@
     <tr>
         <th>Name</th>
         <th>Date</th>
+        <th>&nbsp;</th>
     </tr>
     
     <% @events.each do |event| %>
@@ -9,6 +10,7 @@
         
         <td><%= link_to event.title, event %></td>
         <td><%=h event.start_date_time%></td>
+        <td><%= link_to "Signup", authorize_signups_path(event) %></td>
     </tr>
     <% end %>
 </table>

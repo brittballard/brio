@@ -1,0 +1,9 @@
+<h1>you are now registering</h1>
+your signup id is... <%= @signup.id %>
+<br /><br />
+<% form_for @user, :url => account_path do |f| %>
+  <%= f.error_messages %>
+  <%= render(:partial => "users/form", :locals => { :form => f } )%>
+<% end %>
+<br /><br />
+<%= button_to "Go pay", :action => "go_pay" %>
