@@ -35,12 +35,12 @@ class SignupsController < ApplicationController
   def go_pay
     @user = User.new(params[:user])
     @signup = Signup.find(params[:id])
-      
-    if @user.save
+
+    if @user.save!
       @signup.user_id = @user.id
       
-      if @signup.save
-        redirect_to pay_signup(@signup)
+      if @signup.save!
+        render(:action => 'pay')
       end
     else
       flash[:error] = "Error saving!"
@@ -48,6 +48,7 @@ class SignupsController < ApplicationController
   end
   
   def pay
+    debugger
     @signup = Signup.find(params[:id])
   end
 end
