@@ -36,10 +36,10 @@ class SignupsController < ApplicationController
     @user = User.new(params[:user])
     @signup = Signup.find(params[:id])
 
-    if @user.save!
+    if @user.save
       @signup.user_id = @user.id
       
-      if @signup.save!
+      if @signup.save
         render(:action => 'pay')
       end
     else
