@@ -45,14 +45,15 @@ jQuery.extend({
 })
 
 var brio = {}
+brio.utility = {}
 
-brio.register_date_picker = function(ids){
+brio.utility.register_date_picker = function(ids){
   for(var index in ids){
     $('#' + ids[index]).datepicker();
   }
 }
 
-brio.initialize_map = function(lat, lng, canvas_id){
+brio.utility.initialize_map = function(lat, lng, canvas_id){
   var latlng = new google.maps.LatLng(lat, lng);
   var myOptions = {
     zoom: 8,
