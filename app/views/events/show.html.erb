@@ -16,10 +16,15 @@
       Registration End Date: <%= @event.registration_end_date_time %>
     </li>
   </ul>
-  
+  <div id='map_canvas'></div>
   <ul>
       <li>
           <%= link_to "Manage registrants", event_users_path(@event) %>
       </li>
   </ul>
 </div>
+<script>
+  $(document).ready(function() {
+    brio.initialize_map(32.7833333, -96.8, 'map_canvas')
+  })
+</script>

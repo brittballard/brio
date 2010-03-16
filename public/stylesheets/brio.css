@@ -25,6 +25,12 @@ div#container{
   position:relative;
 }
 
+div#map_canvas{
+  width: 500px ;
+  height: 300px ;
+}
+
+
 #footer {
    position:absolute;
    bottom:0;
