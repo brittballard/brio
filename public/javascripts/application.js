@@ -44,10 +44,10 @@ jQuery.extend({
 	}
 })
 
-function register_date_picker(ids){
-	for(var index in ids){
-		$('#' + ids[index]).datepicker();
-	}
-}
+var brio = {}
 
-// end utility methods
+brio.register_date_picker = function(ids){
+  for(var index in ids){
+    $('#' + ids[index]).datepicker();
+  }
+}
