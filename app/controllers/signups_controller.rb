@@ -1,6 +1,7 @@
 class SignupsController < ApplicationController
   def authorize
     @event = Event.find(params[:event_id])
+    #@signup = Signup.new
     
     #set some event event specific properties on the page, like event name, disclaimer, etc.
   end
@@ -10,26 +11,34 @@ class SignupsController < ApplicationController
     event_id = params[:event_id]
     user_id = current_user.blank? ? nil : current_user.id
     
-    signup = Signup.new()
-    signup.event_id = event_id
-    signup.user_id = user_id
+    @signup = Signup.new(params[:signup])
+    @signup.event_id = event_id
+    @signup.user_id = user_id
     
     #hook up accepted terms correctly
-    signup.accepted_terms = true
+    #if they accept the terms set the cookie, otherwise don't let em by
     
-    if signup.save
+    cookies[event_id] = @signup.accepted_terms
+    
+    if @signup.save
       flash[:notice] = "Nice work buddy"
-      redirect_to register_signup_path(signup)
+      redirect_to register_signup_path(@signup)
     else
       flash[:notice] = "You suck wanker"
     end
   end
   
   def register
-    #need to verify this is a valid signup for the current user
-    #also need to hook up being able to sign in from here, and populate data from the signed in user, if possible
     @signup = Signup.find(params[:id])
-    @user = User.new()
+      
+    if cookies[@signup.event_id].nil? or cookies[@signup.event_id].empty? or cookies[@signup.event_id] = false
+      redirect_to events_path
+      flash[:notice] = "You didn't accept the terms."
+    else
+      #need to verify this is a valid signup for the current user
+      #also need to hook up being able to sign in from here, and populate data from the signed in user, if possible
+      @user = User.new()
+    end
   end
   
   def go_pay
