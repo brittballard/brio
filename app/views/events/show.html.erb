@@ -17,6 +17,7 @@
     </li>
   </ul>
   <div id='map_canvas'></div>
+  <input id='start_button' value="Start" type="button" />
   <ul>
       <li>
           <%= link_to "Manage registrants", event_users_path(@event) %>
@@ -25,6 +26,7 @@
 </div>
 <script>
   $(document).ready(function() {
-    brio.utility.initialize_map(32.7833333, -96.8, 'map_canvas')
+    brio.jQueryInit.initialize_panorama_view();
+    brio.utility.initialize_panorama(32.7833333, -96.8, 'map_canvas');
   })
 </script>
