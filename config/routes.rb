@@ -9,4 +9,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :signups, :member => { :register => [:get], :go_pay => [:post], :pay => [:get] }
   
   map.root :controller => "events"
+  
+  map.login "login", :controller => "user_sessions", :action => "new"
+  map.logout "logout", :controller => "user_sessions", :action => "destroy"
 end
