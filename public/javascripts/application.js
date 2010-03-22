@@ -49,8 +49,6 @@ brio.utility = {}
 brio.utility.map = {}
 brio.utility.pano = {}
 
-brio.jQueryInit = {}
-
 brio.utility.register_date_picker = function(ids){
   for(var index in ids){
     $('#' + ids[index]).datepicker();
@@ -87,11 +85,4 @@ brio.utility.pano.animate = function(lat, lng, canvas_id){
   var myPano = new GStreetviewPanorama(document.getElementById(canvas_id));
   var location = new GLatLng(lat, lng);
   myPano.setLocationAndPOV(location, myPano.getPOV());
-}
-
-brio.jQueryInit.initialize_panorama_view = function(){
-  $('#start_button').click(function(){
-    brio.utility.animate(32.78502,-96.801589, 'map_canvas');
-    return false;
-  })
 }
