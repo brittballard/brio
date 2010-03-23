@@ -27,5 +27,6 @@
 <script>
   $(document).ready(function() {
     brio.utility.map.initialize_map(32.7833333, -96.8, 15, 'map_canvas', 'map_pano', [new GStreetviewOverlay()]);
+    brio.utility.set_data('map_canvas', [['map_path', '<%= maps_path %>'], ['map_datapoints_path', '<%= map_datapoints_path %>']]);
   })
 </script>

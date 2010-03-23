@@ -1,0 +1,29 @@
+      exists  app/models/
+      exists  app/controllers/
+      exists  app/helpers/
+      create  app/views/jobs
+      exists  app/views/layouts/
+      exists  test/functional/
+      exists  test/unit/
+      exists  test/unit/helpers/
+      exists  public/stylesheets/
+      create  app/views/jobs/index.html.erb
+      create  app/views/jobs/show.html.erb
+      create  app/views/jobs/new.html.erb
+      create  app/views/jobs/edit.html.erb
+      create  app/views/layouts/jobs.html.erb
+   identical  public/stylesheets/scaffold.css
+      create  app/controllers/jobs_controller.rb
+      create  test/functional/jobs_controller_test.rb
+      create  app/helpers/jobs_helper.rb
+      create  test/unit/helpers/jobs_helper_test.rb
+       route  map.resources :jobs
+  dependency  model
+      exists    app/models/
+      exists    test/unit/
+      exists    test/fixtures/
+        skip    app/models/job.rb
+   identical    test/unit/job_test.rb
+        skip    test/fixtures/jobs.yml
+      exists    db/migrate
+Another migration is already named create_jobs: db/migrate/20100225042614_create_jobs.rb

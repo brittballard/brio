@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100323003925) do
+ActiveRecord::Schema.define(:version => 20100323031923) do
 
   create_table "events", :force => true do |t|
     t.string   "title"
@@ -58,10 +58,10 @@ ActiveRecord::Schema.define(:version => 20100323003925) do
   create_table "jobs", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "description",         :null => false
-    t.integer  "number_of_volnteers", :null => false
-    t.integer  "location_id",         :null => false
-    t.integer  "event_id",            :null => false
+    t.string   "description",          :null => false
+    t.integer  "number_of_volunteers", :null => false
+    t.integer  "location_id",          :null => false
+    t.integer  "event_id",             :null => false
     t.datetime "start_date_time"
     t.datetime "end_date_time"
   end
@@ -83,6 +83,20 @@ ActiveRecord::Schema.define(:version => 20100323003925) do
   add_index "locations", ["event_id", "job_id"], :name => "index_locations_on_event_id_and_job_id"
   add_index "locations", ["event_id"], :name => "index_locations_on_event_id"
   add_index "locations", ["job_id"], :name => "index_locations_on_job_id"
+
+  create_table "map_data_points", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "type",       :limit => 20
+    t.integer  "map_id",                   :null => false
+  end
+
+  create_table "maps", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "title",      :limit => 50, :null => false
+    t.integer  "event_id",                 :null => false
+  end
 
   create_table "signups", :force => true do |t|
     t.string   "signup_state"

@@ -1,15 +1,24 @@
-var brio = {
+brio = {
   utility: {
     register_date_picker : function(ids){
       for(var index in ids){
         $('#' + ids[index]).datepicker();
       }
     },
+      
+    set_data : function(id, data_defs){
+      var dom_object = document.getElementById(id);
+      
+      for(var i = 0; i < data_defs.length; i++){
+        $(dom_object).data(data_defs[i][0], data_defs[i][1]);
+      }
+    },
 
     map: {
       initialize_map : function(lat, lng, zoom, map_canvas_id, pano_canvas_id, overlays){
         if (GBrowserIsCompatible()) {
-          var map = new GMap2(document.getElementById(map_canvas_id));
+          var map_div = document.getElementById(map_canvas_id);
+          var map = new GMap2(map_div);
           map.setCenter(new GLatLng(lat, lng), zoom);
           map.setUIToDefault();
 
@@ -27,9 +36,14 @@ var brio = {
             });
           }
         }
+      },
+      
+      save_lat_lng_data_point : function(latlng){
+        $.post($(this).data("app_info").new_step_path, {"step[recipe_id]":$(this).data("app_info").recipe_id}, null, "script");
+        return false;
       }
     },
-    
+
     pano: {
       initialize_panorama : function(canvas_id){
         return new GStreetviewPanorama(document.getElementById(canvas_id));

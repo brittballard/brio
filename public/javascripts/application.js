@@ -21,10 +21,8 @@ jQuery.extend({
       success: callback,
       dataType: type
     });
-  }
-});
-
-jQuery.extend({
+  },
+  
   put_post: function( url, data, callback, type ) {
     // shift arguments if data argument was omited
     if ( jQuery.isFunction( data ) ) {
