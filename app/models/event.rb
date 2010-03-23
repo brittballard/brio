@@ -10,6 +10,7 @@ class Event < ActiveRecord::Base
   has_and_belongs_to_many :registrants, :join_table => 'events_registrants', :class_name => 'User'
   has_and_belongs_to_many :volunteers, :join_table => 'events_jobs_registrants', :class_name => 'User'
   has_and_belongs_to_many :signups, :join_table => 'events_signups', :class_name => 'User'
+  has_one :map, :dependent => :destroy
   
   named_scope :setup, :conditions => {:event_state => 'setup'}
   named_scope :registration_open, :conditions => {:event_state => 'registration_open'}
