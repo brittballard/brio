@@ -1,27 +1,37 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
-  <head>
-    <title><%= h(yield(:title) || "Untitled") %></title>
-    <%= stylesheet_link_tag('brio', :media => 'all') %>
-    <%= javascript_include_tag('jquery', 'jquery.ui.core', 'jquery.ui.datepicker', 'application') %>
-  </head>
-  <body>
-    <div id="container" style="margin-top: 25px;">
-      <div id="header">
-        <div id="navigation">
-          navigation
+    <head>
+        <title><%= h(yield(:title) || "Brio") %></title>
+        <%= stylesheet_link_tag('brio', :media => 'all') %>
+        <%= javascript_include_tag('jquery', 'jquery.ui.core', 'jquery.ui.datepicker', 'application', 'brio') %>
+        <script type="text/javascript" src="http://maps.google.com/maps?file=api&amp;v=3&amp;key=<%= AppConfig.google_maps_api  %>&sensor=false"></script>
+        </script>
+    </head>
+    <body>
+        <div id="container" style="margin-top: 25px;">
+            <div id="header">
+                <div id="navigation">
+                    <div id="left">
+                        <%= link_to "Open events", search_open_events_path %>
+                    </div>
+                    <div id="right">
+                        <% if current_user %>
+                        <%= link_to "Edit Profile", edit_user_path(:current) %>|<%= link_to "Logout", logout_path %>
+                        <% else %>
+                        <%= link_to "Register", new_user_path %>|<%= link_to "Login", login_path %>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+            <%- flash.each do |name, msg| -%>
+            <%= content_tag :div, msg, :id => "flash_#{name}" %>
+            <%- end -%>
+            <div id="body">
+                <%= yield %>
+            </div>
+            <div id="footer">
+                footer
+            </div>
         </div>
-      </div>
-      <%- flash.each do |name, msg| -%>
-        <%= content_tag :div, msg, :id => "flash_#{name}" %>
-      <%- end -%>
-      <div id="body">
-        <%= yield %>
-      </div>
-      <div id="footer">
-        footer
-      </div>
-    </div>
-  </body>
+    </body>
 </html>
