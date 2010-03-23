@@ -64,7 +64,7 @@ class Event < ActiveRecord::Base
   end
 
   def validate
-    errors.add(:start_date_time, "must be before end date.") if start_date >= end_date
+    errors.add(:start_date_time, "must be before end date.") if start_date_time >= end_date_time
     errors.add(:registration_start_date_time, "must be before registration end date") if registration_start_date.present? && registration_end_date.present? && registration_start_date_time >= registration_end_date_time
   end
 end

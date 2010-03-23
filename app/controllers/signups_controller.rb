@@ -1,24 +1,15 @@
 class SignupsController < ApplicationController
   def authorize
     @event = Event.find(params[:event_id])
-    #@signup = Signup.new
-    
-    #set some event event specific properties on the page, like event name, disclaimer, etc.
   end
   
   def go_register
-    #create new signup
-    event_id = params[:event_id]
-    user_id = current_user.blank? ? nil : current_user.id
-    
     @signup = Signup.new(params[:signup])
-    @signup.event_id = event_id
-    @signup.user_id = user_id
-    
-    #hook up accepted terms correctly
-    #if they accept the terms set the cookie, otherwise don't let em by
-    
-    cookies[event_id] = @signup.accepted_terms
+    @signup.event = Event.find(@signup.event_id)
+    debugger
+    @signup.user = @signup.user_id.present? ? User.find(@signup.user_id) : User.new(params[:event])
+debugger
+    cookies[@signup.event_id] = @signup.accepted_terms
     
     if @signup.save
       flash[:notice] = "Nice work buddy"

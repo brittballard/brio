@@ -1,26 +1,37 @@
 <h1>You are registering for this event, wanker</h1>
-<!-- Make a partial out of the event view for information about the event and the disclaimer  -->
 <% form_for :signup, @signup, :url => { :action => "go_register" } do |f| %>
 <ul>
     <li>
         Event name: <%= @event.title %>
     </li>
     <li>
+        <!-- Need to format these date times proper -->
+        Date: <%= @event.start_date_time %> to <%= @event.end_date_time%>
+    </li>
+    <li>
         Disclaimer: 
-        <div style="height: 300px; width: 200px; overflow: auto; overflow-y: hidden; border-style: solid; border-width: 1px; border-color: black;">
+        <div style="height: 300px; width: 490px; overflow: auto; overflow-y: hidden; border-style: solid; border-width: 1px; border-color: black;">
             <%= @event.disclaimer %>
         </div>
     </li>
     <li>
-        <%= label_tag "How old are you?" %>
-        <%= text_field_tag "age" %>
+            
+        <%= label_tag "When is your birthday?" %>
+        <%= render(:partial => 'layouts/datetime_select', :locals => { :date_type => 'birthday', :value => current_user.present? ? current_user.birthday : nil, :show_time => false }) %>
     </li>
     <li>
         <%= f.label :accepted_terms, "Do you agree to these terms?" %>
         <%= f.check_box :accepted_terms %>
     </li>
     <li>
-        <%= submit_tag 'Register' %>
+        <%= f.hidden_field :event_id, :value => @event.id %>
+        <%= f.hidden_field :user_id, :value => current_user.present? ? current_user.id : nil %>
+        <%= submit_tag 'Register'  %>
     </li>
 </ul>
 <% end %>
+<script>
+  $(document).ready(function() {
+    brio.utility.register_date_picker(['birthday_date_picker'])
+  })
+</script>

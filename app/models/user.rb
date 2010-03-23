@@ -1,5 +1,16 @@
 class User < ActiveRecord::Base
   include AASM
+  
+  def age
+    age = Date.today.year - read_attribute(:birthday).year
+    debugger
+    if Date.today.month < read_attribute(:birthday).month || 
+    (Date.today.month == read_attribute(:birthday).month && read_attribute(:birthday).day >= Date.today.day)
+      age = age - 1
+    end
+    age
+  end
+  
   acts_as_authentic
     
   has_and_belongs_to_many :registered_events, :join_table => 'events_registrants', :class_name => 'Event'
