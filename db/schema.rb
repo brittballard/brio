@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100323010018) do
+ActiveRecord::Schema.define(:version => 20100323031923) do
 
   create_table "events", :force => true do |t|
     t.string   "title"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20100323010018) do
     t.datetime "registration_end_date_time"
     t.datetime "start_date_time",                                                           :null => false
     t.datetime "end_date_time",                                                             :null => false
+    t.string   "time_zone",                    :limit => 40
     t.integer  "registration_fee",             :limit => 10, :precision => 10, :scale => 0, :null => false
     t.text     "description",                                                               :null => false
     t.integer  "max_participants"
@@ -32,7 +33,6 @@ ActiveRecord::Schema.define(:version => 20100323010018) do
     t.integer  "parent_id"
     t.integer  "minimum_age_to_register"
     t.integer  "minimum_age_to_participate"
-    t.string   "time_zone",                    :limit => 40,                                :null => false
     t.string   "latitude",                     :limit => 40
     t.string   "longitude",                    :limit => 40
   end
@@ -58,10 +58,10 @@ ActiveRecord::Schema.define(:version => 20100323010018) do
   create_table "jobs", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "description",         :null => false
-    t.integer  "number_of_volnteers", :null => false
-    t.integer  "location_id",         :null => false
-    t.integer  "event_id",            :null => false
+    t.string   "description",          :null => false
+    t.integer  "number_of_volunteers", :null => false
+    t.integer  "location_id",          :null => false
+    t.integer  "event_id",             :null => false
     t.datetime "start_date_time"
     t.datetime "end_date_time"
   end
@@ -123,8 +123,8 @@ ActiveRecord::Schema.define(:version => 20100323010018) do
     t.string   "last_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "default_time_zone",   :limit => 40
     t.string   "user_state",                                       :null => false
+    t.string   "default_time_zone",   :limit => 40
   end
 
 end
