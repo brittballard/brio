@@ -80,25 +80,25 @@
           <%= f.label(:start_date_time) %>
         </li>
         <li>
-          <%= render(:partial => 'layouts/datetime_select', :locals => { :date_type => 'start', :value => @event.start_date_time }) %>
+          <%= render(:partial => 'layouts/datetime_select', :locals => { :date_type => 'start', :value => @event.start_date_time, :show_time => true }) %>
         </li>
         <li>
           <%= f.label(:end_date_time) %>
         </li>
         <li>
-          <%= render(:partial => 'layouts/datetime_select', :locals => { :date_type => 'end', :value => @event.end_date_time }) %>
+          <%= render(:partial => 'layouts/datetime_select', :locals => { :date_type => 'end', :value => @event.end_date_time, :show_time => true }) %>
         </li>
         <li>
           <%= f.label(:registration_start_date_time) %>
         </li>
         <li>
-          <%= render(:partial => 'layouts/datetime_select', :locals => { :date_type => 'registration_start', :value => @event.registration_start_date_time }) %>
+          <%= render(:partial => 'layouts/datetime_select', :locals => { :date_type => 'registration_start', :value => @event.registration_start_date_time, :show_time => true }) %>
         </li>
         <li>
           <%= f.label(:registration_end_date) %>
         </li>
         <li>
-          <%= render(:partial => 'layouts/datetime_select', :locals => { :date_type => 'registration_end', :value => @event.registration_end_date_time }) %>
+          <%= render(:partial => 'layouts/datetime_select', :locals => { :date_type => 'registration_end', :value => @event.registration_end_date_time, :show_time => true }) %>
         </li>
       </ul>
     </div>
@@ -139,6 +139,6 @@
 </div>
 <script>
   $(document).ready(function() {
-    brio.utility.register_date_picker(['start_date_picker', 'end_date_picker', 'registration_start_date_picker', 'registration_end_date_picker'])
+    brio.utility.register_date_picker([$('#start_date_picker'), $('#end_date_picker'), $('#registration_start_date_picker'), $('#registration_end_date_picker')])
   })
 </script>
