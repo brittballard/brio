@@ -13,4 +13,5 @@ Factory.define :event do |event|
   event.latitude(95.02)
   event.longitude(-36.45)
   event.time_zone('Central Time (US & Canada)')
+  event.event_state(:registration_closed)
 end
