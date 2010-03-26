@@ -1,15 +1,1 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  user_id: 
-  event_id: 
-  signup_state: 
-  accepted_terms: 
-  payment_id: 
-
-two:
-  user_id: 
-  event_id: 
-  signup_state: 
-  accepted_terms: 
-  payment_id: 
