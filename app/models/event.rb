@@ -1,6 +1,8 @@
 class Event < ActiveRecord::Base
   include AASM
   
+  # macros
+  
   validates_presence_of :title, :description, :start_date_time, :end_date_time, :address_line_1, :city, :state, :postal_code, :time_zone
   validates_numericality_of :registration_fee
   validates_numericality_of :minimum_age_to_participate, :minimum_age_to_register, :allow_nil => true
@@ -24,6 +26,7 @@ class Event < ActiveRecord::Base
                 :registration_end_date, :registration_end_hour, :registration_end_minute)
                 
   # aasm things
+  
   aasm_column :event_state
   aasm_initial_state :setup
   
@@ -32,6 +35,8 @@ class Event < ActiveRecord::Base
   aasm_state :registration_closed
   aasm_state :running
   aasm_state :complete
+  
+  # instance methods
   
   aasm_event :open_registration do
     transitions :to => :registration_open, :from => [:setup, :registration_closed], :guard => :is_complete?
@@ -55,6 +60,41 @@ class Event < ActiveRecord::Base
 
   def set_date_time(date_type)
     self.send("#{date_type}_date_time=", DateTime.parse(self.send("#{date_type}_date") + ' ' + self.send("#{date_type}_hour") + ':' + self.send("#{date_type}_minute")))
+  end
+  
+  # class methods
+  
+  def self.filter_events(params, filter_named_scope)
+    conditions = build_conditions_from_params(params)
+
+    if conditions.any?
+      events = Event.send(filter_named_scope).all(:conditions => conditions)
+    else
+      events = Event.send(filter_named_scope)
+    end
+    
+    events
+  end
+  
+  def self.build_conditions_from_params(params)
+    conditions = []
+    conditions_params = {}
+    
+    if params[:name].present?
+      conditions << "title like :name"
+      conditions_params.merge!({ :name => params[:name]})
+    end
+    
+    if params[:date].present?
+      conditions << ":date between start_date_time and end_date_time"
+      conditions_params.merge!({ :date => params[:date]})
+    end
+    
+    if params[:location].present?
+      # what are we doing with locations
+    end
+    
+    [conditions.join(' and '), conditions_params.any? ? conditions_params : nil].compact
   end
   
   private

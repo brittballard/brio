@@ -1,4 +1,4 @@
-var brio = (function($){
+var brio = (function(){
   return {
     utility: {
       register_date_picker : function(date_pickers){
@@ -58,4 +58,4 @@ var brio = (function($){
       }
     }
   }
-})(jQuery);
+})();
