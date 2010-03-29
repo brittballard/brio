@@ -45,18 +45,15 @@ Screw.Unit(function() {
           describe("contains utility methods pertaining to google maps", function(){
             describe("initialize_map", function(){
               it("takes a lat, lng, map and pano, and an array of overlays and creates a google map", function(){
-                googleMapMock = mock(new Object);
-                googleLatLngMock = mock(new Object);
                 googleMapMock.should_receive('setCenter').with_arguments(googleLatLngMock, 15).exactly('once');
                 googleMapMock.should_receive('setUIToDefault').exactly('once');
-                
+              
                 brio.utility.map.initialize_map(googleMapMock, googleLatLngMock, 15);
               });
             });
             
             describe("add_overlays", function(){
               it("adds google maps overlays passed into the method in an array to a google map", function(){
-                googleMapMock = mock(new Object);
                 googleMapMock.should_receive('addOverlay').with_arguments(googleOverlay).exactly('twice');
 
                 brio.utility.map.add_overlays(googleMapMock, [googleOverlay, googleOverlay]);
