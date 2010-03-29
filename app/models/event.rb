@@ -61,42 +61,7 @@ class Event < ActiveRecord::Base
   def set_date_time(date_type)
     self.send("#{date_type}_date_time=", DateTime.parse(self.send("#{date_type}_date") + ' ' + self.send("#{date_type}_hour") + ':' + self.send("#{date_type}_minute")))
   end
-  
-  # class methods
-  
-  def self.filter_events(params, filter_named_scope)
-    conditions = build_conditions_from_params(params)
 
-    if conditions.any?
-      events = Event.send(filter_named_scope).all(:conditions => conditions)
-    else
-      events = Event.send(filter_named_scope)
-    end
-    
-    events
-  end
-  
-  def self.build_conditions_from_params(params)
-    conditions = []
-    conditions_params = {}
-    
-    if params[:name].present?
-      conditions << "title like :name"
-      conditions_params.merge!({ :name => params[:name]})
-    end
-    
-    if params[:date].present?
-      conditions << ":date between start_date_time and end_date_time"
-      conditions_params.merge!({ :date => params[:date]})
-    end
-    
-    if params[:location].present?
-      # what are we doing with locations
-    end
-    
-    [conditions.join(' and '), conditions_params.any? ? conditions_params : nil].compact
-  end
-  
   private
   
   def is_complete?

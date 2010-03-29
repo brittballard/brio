@@ -164,23 +164,27 @@ class EventTest < ActiveSupport::TestCase
     end
   end
 
-  context("event class methods") do
+  context("event filtering") do
+    setup do
+      @event_filter_service = EventFilterService.new(Event)
+    end
+    
     should("build the correct conditions when the build_conditions_from_params method is given a name param") do
-      conditions = Event.build_conditions_from_params({ :name => 'britton' })
+      conditions = EventFilterService.build_conditions_from_params({ :name => 'britton' })
 
       assert_same_elements(["title like :name", { :name => 'britton' }], conditions)
     end
     
     should("build the correct conditions when the build_conditions_from_params method is given a date param") do
       now = Time.now
-      conditions = Event.build_conditions_from_params({ :date => now })
+      conditions = EventFilterService.build_conditions_from_params({ :date => now })
 
       assert_same_elements([":date between start_date_time and end_date_time", { :date => now }], conditions)
     end
     
     should("build the correct conditions when the build_conditions_from_params method is given a date and name param") do
       now = Time.now
-      conditions = Event.build_conditions_from_params({ :date => now, :name => 'britton' })
+      conditions = EventFilterService.build_conditions_from_params({ :date => now, :name => 'britton' })
 
       assert_same_elements(["title like :name and :date between start_date_time and end_date_time", { :name => 'britton', :date => now }], conditions)
     end
@@ -191,7 +195,7 @@ class EventTest < ActiveSupport::TestCase
       event.open_registration
       event.save
       
-      events = Event.filter_events({}, :registration_open)
+      events = @event_filter_service.filter_events({}, :registration_open)
       
       assert events.select{ |event| event.title == 'filter events test' }.any?
       assert_equal Event.registration_open.length, events.length
@@ -203,7 +207,7 @@ class EventTest < ActiveSupport::TestCase
       event.open_registration
       event.save
       
-      events = Event.filter_events({ :name => 'filter events test' }, :registration_open)
+      events = @event_filter_service.filter_events({ :name => 'filter events test' }, :registration_open)
       
       assert events.select{ |event| event.title == 'filter events test' }.any?
       assert_equal Event.registration_open.find_all_by_title('filter events test').length, events.length
