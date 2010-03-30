@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100323031923) do
+ActiveRecord::Schema.define(:version => 20100330005708) do
 
   create_table "events", :force => true do |t|
     t.string   "title"
@@ -58,31 +58,22 @@ ActiveRecord::Schema.define(:version => 20100323031923) do
   create_table "jobs", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "description",          :null => false
-    t.integer  "number_of_volunteers", :null => false
-    t.integer  "location_id",          :null => false
-    t.integer  "event_id",             :null => false
+    t.string   "description",                                  :null => false
+    t.integer  "number_of_volunteers_required",                :null => false
+    t.integer  "event_id",                                     :null => false
     t.datetime "start_date_time"
     t.datetime "end_date_time"
+    t.string   "lat",                           :limit => 50
+    t.string   "lng",                           :limit => 50
+    t.string   "address_line_1",                :limit => 100
+    t.string   "address_line_2",                :limit => 100
+    t.string   "city",                          :limit => 50
+    t.string   "state",                         :limit => 10
+    t.string   "postal_code",                   :limit => 9
+    t.string   "title",                         :limit => 50
   end
 
   add_index "jobs", ["event_id"], :name => "index_jobs_on_event_id"
-
-  create_table "locations", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "map_url",                                                   :null => false
-    t.string   "title",       :limit => 50,                                 :null => false
-    t.string   "description", :limit => 200,                                :null => false
-    t.integer  "event_id",                                                  :null => false
-    t.integer  "job_id",                                                    :null => false
-    t.integer  "lat",         :limit => 10,  :precision => 10, :scale => 0
-    t.integer  "long",        :limit => 10,  :precision => 10, :scale => 0
-  end
-
-  add_index "locations", ["event_id", "job_id"], :name => "index_locations_on_event_id_and_job_id"
-  add_index "locations", ["event_id"], :name => "index_locations_on_event_id"
-  add_index "locations", ["job_id"], :name => "index_locations_on_job_id"
 
   create_table "map_data_points", :force => true do |t|
     t.datetime "created_at"

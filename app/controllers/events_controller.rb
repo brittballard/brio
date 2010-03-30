@@ -46,8 +46,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    event_creation_service = EventCreationService.new(Event)
-    @event = event_creation_service.create(params[:event])
+    @event = Event.new(params[:event])
     set_date_times(@event)
     
     if @event.save

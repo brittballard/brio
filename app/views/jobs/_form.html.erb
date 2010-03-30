@@ -1,0 +1,32 @@
+<div id='job'>
+  <% form_for(@job) do |form| %>
+    <div id='main'>
+      <ul>
+        <li>
+          <%= form.label(:title) %>
+        </li>
+        <li>
+          <%= form.text_field(:title) %>
+        </li>
+        <li>
+          <% form.label(:description) %>
+        </li>
+        <li>
+          <% form.text_field(:description) %>
+        </li>
+        <li>
+          <% form.label(:lat) %>
+        </li>
+        <li>
+          <% form.text_field(:lat) %>
+        </li>
+        <li>
+          <% form.label(:lng) %>
+        </li>
+        <li>
+          <% form.text_field(:lng) %>
+        </li>
+      </ul>
+    </div>
+  <% end %>
+</div>

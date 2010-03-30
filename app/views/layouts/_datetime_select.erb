@@ -1,5 +1,5 @@
-<%= text_field_tag("event[#{date_type}_date]", nil, :id => "#{date_type}_date_picker", :value => (value.present? ? "#{value.month()}/#{value.day()}/#{value.year()}" : nil)) %>
+<%= text_field_tag("#{object_klass}[#{date_type}_date]", nil, :id => "#{date_type}_date_picker", :value => (value.present? ? "#{value.month()}/#{value.day()}/#{value.year()}" : nil)) %>
 <% if show_time %>
-    <%= select_tag("event[#{date_type}_hour]", options_for_select((0..23).to_a, (value.present? ? value.hour : nil))) %> : 
-    <%= select_tag("event[#{date_type}_minute]", options_for_select(('00'..'59').to_a.map { |minute| minute.rjust(2, '0') }, (value.present? ? value.min.to_s.rjust(2, '0') : nil))) %>
+    <%= select_tag("#{object_klass}[#{date_type}_hour]", options_for_select((0..23).to_a, (value.present? ? value.hour : nil))) %> : 
+    <%= select_tag("#{object_klass}[#{date_type}_minute]", options_for_select(('00'..'59').to_a.map { |minute| minute.rjust(2, '0') }, (value.present? ? value.min.to_s.rjust(2, '0') : nil))) %>
 <% end %>

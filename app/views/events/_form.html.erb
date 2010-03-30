@@ -1,140 +1,95 @@
 <div id="form">
-  <% form_for(@event) do |f| %>
+  <% form_for(@event) do |form| %>
     <div id='main'>
       <ul>
         <li>
-          <%= f.label(:title) %>
+          <%= form.label(:title) %>
         </li>
         <li>
-          <%= f.text_field(:title) %>
+          <%= form.text_field(:title) %>
         </li>
         <li>
-          <%= f.label(:max_participants) %>
+          <%= form.label(:max_participants) %>
         </li>
         <li>
-          <%= f.text_field(:max_participants) %>
+          <%= form.text_field(:max_participants) %>
         </li>
         <li>
-          <%= f.label(:registration_fee) %>
+          <%= form.label(:registration_fee) %>
         </li>
         <li>
-          <%= f.text_field(:registration_fee) %>
+          <%= form.text_field(:registration_fee) %>
         </li>
         <li>
-          <%= f.label(:time_zone) %>
+          <%= form.label(:time_zone) %>
         </li>
         <li>
           <%= select('event', 'time_zone', time_zone_options_for_select()) %><br />
         </li>
       </ul>
     </div>
-    <div id='address'>
-      <ul>
-        <li>
-          <%= f.label(:address_line_1) %>
-        </li>
-        <li>
-          <%= f.text_field(:address_line_1) %>
-        </li>
-        <li>
-          <%= f.label(:address_line_2) %>
-        </li>
-        <li>
-          <%= f.text_field(:address_line_2) %>
-        </li>
-        <li>
-          <%= f.label(:city) %>
-        </li>
-        <li>
-          <%= f.text_field(:city) %>
-        </li>
-        <li>
-          <%= f.label(:state) %>
-        </li>
-        <li>
-          <%= f.text_field(:state) %>
-        </li>
-        <li>
-          <%= f.label(:postal_code) %>
-        </li>
-        <li>
-          <%= f.text_field(:postal_code) %>
-        </li>
-        <li>
-          <%= f.label(:latitude) %>
-        </li>
-        <li>
-          <%= f.text_field(:latitude) %>
-        </li>
-        <li>
-          <%= f.label(:longitude) %>
-        </li>
-        <li>
-          <%= f.text_field(:longitude) %>
-        </li>
-      </ul>
-    </div>
+    <% render(:partial => 'layouts/address', :locals => { :form => form }) %>
     <div id='times'>
       <ul>
         <li>
-          <%= f.label(:start_date_time) %>
+          <%= form.label(:start_date_time) %>
         </li>
         <li>
-          <%= render(:partial => 'layouts/datetime_select', :locals => { :date_type => 'start', :value => @event.start_date_time, :show_time => true }) %>
+          <%= render(:partial => 'layouts/datetime_select', :locals => { :date_type => 'start', :value => @event.start_date_time, :show_time => true, :object_klass => 'event' }) %>
         </li>
         <li>
-          <%= f.label(:end_date_time) %>
+          <%= form.label(:end_date_time) %>
         </li>
         <li>
-          <%= render(:partial => 'layouts/datetime_select', :locals => { :date_type => 'end', :value => @event.end_date_time, :show_time => true }) %>
+          <%= render(:partial => 'layouts/datetime_select', :locals => { :date_type => 'end', :value => @event.end_date_time, :show_time => true, :object_klass => 'event', :object_klass => 'event' }) %>
         </li>
         <li>
-          <%= f.label(:registration_start_date_time) %>
+          <%= form.label(:registration_start_date_time) %>
         </li>
         <li>
-          <%= render(:partial => 'layouts/datetime_select', :locals => { :date_type => 'registration_start', :value => @event.registration_start_date_time, :show_time => true }) %>
+          <%= render(:partial => 'layouts/datetime_select', :locals => { :date_type => 'registration_start', :value => @event.registration_start_date_time, :show_time => true, :object_klass => 'event', :object_klass => 'event' }) %>
         </li>
         <li>
-          <%= f.label(:registration_end_date) %>
+          <%= form.label(:registration_end_date) %>
         </li>
         <li>
-          <%= render(:partial => 'layouts/datetime_select', :locals => { :date_type => 'registration_end', :value => @event.registration_end_date_time, :show_time => true }) %>
+          <%= render(:partial => 'layouts/datetime_select', :locals => { :date_type => 'registration_end', :value => @event.registration_end_date_time, :show_time => true, :object_klass => 'event' }) %>
         </li>
       </ul>
     </div>
     <div id='age'>
       <ul>
         <li>
-          <%= f.label(:minimum_age_to_participate) %>
+          <%= form.label(:minimum_age_to_participate) %>
         </li>
         <li>
-          <%= f.text_field(:minimum_age_to_participate) %>
+          <%= form.text_field(:minimum_age_to_participate) %>
         </li>
         <li>
-          <%= f.label(:minimum_age_to_register) %>
+          <%= form.label(:minimum_age_to_register) %>
         </li>
         <li>
-          <%= f.text_field(:minimum_age_to_register) %>
+          <%= form.text_field(:minimum_age_to_register) %>
         </li>
       </ul>
     <div>
     <div id='disclaimer_description'>
       <ul>
         <li>
-          <%= f.label(:description) %>
+          <%= form.label(:description) %>
         </li>
         <li>
-          <%= f.text_area(:description) %>
+          <%= form.text_area(:description) %>
         </li>
         <li>
-          <%= f.label(:disclaimer) %>
+          <%= form.label(:disclaimer) %>
         </li>
         <li>
-          <%= f.text_area(:disclaimer) %>
+          <%= form.text_area(:disclaimer) %>
         </li>
       </ul>
     </div>
-    <%= f.submit(:create) %>
+    <%= form.submit(:create) %>
   <% end %>
 </div>
 <script>

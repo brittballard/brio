@@ -40,9 +40,9 @@ class JobsController < ApplicationController
   # POST /jobs
   # POST /jobs.xml
   def create
-    @job = Job.new(params[:job])
-    @job.start_date_time = Time.new
-    @job.end_date_time = Time.new
+    @job_creation_service = JobCreationService.new(Job)
+    @job = @job_creation_service.create(params[:job])
+
     respond_to do |format|
       if @job.save
         flash[:notice] = 'Job was successfully created.'
