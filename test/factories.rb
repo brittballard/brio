@@ -1,4 +1,4 @@
-Factory.define :event do |event|
+Factory.define(:event) do |event|
   event.title("This is a test event")
   event.start_date_time(1.day.from_now)
   event.end_date_time(2.days.from_now)
@@ -14,4 +14,17 @@ Factory.define :event do |event|
   event.longitude(-36.45)
   event.time_zone('Central Time (US & Canada)')
   event.event_state(:registration_closed)
+end
+
+Factory.define(:job) do |job|
+  job.title("Brio test job")
+  job.description("This is a job for the brio application.")
+  job.start_date_time(1.day.from_now)
+  job.end_date_time(2.days.from_now)
+  job.address_line_1("23 Tall Skey")
+  job.city("Dallas")
+  job.state("TX")
+  job.postal_code(75206)
+  job.association(:event)
+  job.number_of_volunteers_required(10)
 end

@@ -25,6 +25,7 @@ class JobsController < ApplicationController
   # GET /jobs/new.xml
   def new
     @job = Job.new
+    @event = Event.find(params[:event_id])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,8 +41,10 @@ class JobsController < ApplicationController
   # POST /jobs
   # POST /jobs.xml
   def create
-    @job_creation_service = JobCreationService.new(Job)
-    @job = @job_creation_service.create(params[:job])
+    params[:job][:event_id] = params[:event_id]
+    @job = Job.new(params[:job])
+    @job.set_date_time('start') if params[:start_date].present?
+    @job.set_date_time('end') if params[:end_date].present?
 
     respond_to do |format|
       if @job.save
@@ -49,6 +52,7 @@ class JobsController < ApplicationController
         format.html { redirect_to(@job) }
         format.xml  { render :xml => @job, :status => :created, :location => @job }
       else
+        @event = Event.find(params[:event_id])
         format.html { render :action => "new" }
         format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
       end
