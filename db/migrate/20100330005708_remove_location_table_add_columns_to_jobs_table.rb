@@ -9,6 +9,9 @@ class RemoveLocationTableAddColumnsToJobsTable < ActiveRecord::Migration
     add_column(:jobs, :city, :string, :limit => 50)
     add_column(:jobs, :state, :string, :limit => 10)
     add_column(:jobs, :postal_code, :string, :limit => 9)
+    add_column(:jobs, :title, :string, :limit => 50)
+    remove_column(:jobs, :location_id)
+    rename_column(:jobs, :number_of_volunteers, :number_of_volunteers_required)
   end
 
   def self.down
@@ -34,5 +37,8 @@ class RemoveLocationTableAddColumnsToJobsTable < ActiveRecord::Migration
     remove_column(:jobs, :city)
     remove_column(:jobs, :state)
     remove_column(:jobs, :postal_code)
+    remove_column(:jobs, :title)
+    add_column(:jobs, :location_id, :integer)
+    rename_column(:jobs, :number_of_volunteers_required, :number_of_volunteers)
   end
 end
