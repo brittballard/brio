@@ -7,9 +7,7 @@ Screw.Unit(function() {
     after(function(){ teardownFixtures() });
     
     describe("utility", function(){
-      
-       describe("contains utility methods for the brio applications", function(){
-        
+       describe("contains utility methods for the brio application", function(){
         describe("register_date_picker", function(){
           it("takes a list of div ids and runs the datepicker jQuery ui method on them", function(){
             fixture($('<div id="brittonstest" />'));
@@ -32,17 +30,17 @@ Screw.Unit(function() {
         });
         
         describe("map", function(){
-          var googleMapMock;
-          var googleLatLngMock;
-          var googleOverlay;
-          
-          before(function(){
-            googleMapMock = Smoke.Mock();
-            googleLatLngMock = Smoke.Mock();
-            googleOverlay = Smoke.Mock();
-          });
-          
           describe("contains utility methods pertaining to google maps", function(){
+            var googleMapMock;
+            var googleLatLngMock;
+            var googleOverlay;
+          
+            before(function(){
+              googleMapMock = Smoke.Mock();
+              googleLatLngMock = Smoke.Mock();
+              googleOverlay = Smoke.Mock();
+            });
+            
             describe("initialize_map", function(){
               it("takes a lat, lng, map and pano, and an array of overlays and creates a google map", function(){
                 googleMapMock.should_receive('setCenter').with_arguments(googleLatLngMock, 15).exactly('once');
@@ -63,19 +61,18 @@ Screw.Unit(function() {
         });
         
         describe("pano", function(){
-          var googleMapMock;
-          var googleLatLngMock;
-          var googlePanoMock;
-          var googleEventMock;
-          
-          before(function(){
-            googleMapMock = Smoke.Mock();
-            googleLatLngMock = Smoke.Mock();
-            googlePanoMock = Smoke.Mock();
-            googleEventMock = Smoke.Mock();
-          });
-
           describe("contains untility methods pertaining to google panos", function(){
+            var googleMapMock;
+            var googleLatLngMock;
+            var googlePanoMock;
+            var googleEventMock;
+          
+            before(function(){
+              googleMapMock = Smoke.Mock();
+              googleLatLngMock = Smoke.Mock();
+              googlePanoMock = Smoke.Mock();
+              googleEventMock = Smoke.Mock();
+            });
 
             describe("initialize_pano", function(){
               it("initializes a new google maps pano object", function(){

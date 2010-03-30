@@ -3,8 +3,22 @@ class EventFilterService
     @event_klass = event_klass
   end
   
+  def search_open(params={})
+    filter_events(params, :registration_open)
+  end
+  
+  def search_my(params={})
+    @event_klass.all(:joins => :registrants, :conditions => build_conditions_from_params(params))
+  end
+  
+  def search_results(params={})
+    filter_events(params, :complete)
+  end
+  
+  private
+  
   def filter_events(params, filter_named_scope)
-    conditions = EventFilterService.build_conditions_from_params(params)
+    conditions = build_conditions_from_params(params)
 
     if conditions.any?
       events = @event_klass.send(filter_named_scope).all(:conditions => conditions)
@@ -15,7 +29,7 @@ class EventFilterService
     events
   end
   
-  def self.build_conditions_from_params(params)
+  def build_conditions_from_params(params)
     conditions = []
     conditions_params = {}
     

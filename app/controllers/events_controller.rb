@@ -20,7 +20,7 @@ class EventsController < ApplicationController
 
   def search_open
     event_filter_service = EventFilterService.new(Event)
-    @events = event_filter_service.filter_events(params, :registration_open)
+    @events = event_filter_service.search_open(params)
     
     respond_to do |format|
       format.html
@@ -28,7 +28,8 @@ class EventsController < ApplicationController
   end
 
   def search_my
-    @events = Event.all(:joins => :registrants, :conditions => EventFilterService.build_conditions_from_params(params))
+    event_filter_service = EventFilterService.new(Event)
+    @events = event_filter_service.search_my(params)
 
     respond_to do |format|
       format.html
@@ -37,7 +38,7 @@ class EventsController < ApplicationController
 
   def search_results
     event_filter_service = EventFilterService.new(Event)
-    @events = event_filter_service.filter_events(params, :complete)
+    @events = event_filter_service.search_results(params)
     
     respond_to do |format|
       format.html

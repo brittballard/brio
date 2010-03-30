@@ -177,49 +177,51 @@ class EventTest < ActiveSupport::TestCase
     
     context('EventFilterService build_conditions_from_params method') do
       should("build the correct conditions when the build_conditions_from_params method is given a name param") do
-        conditions = EventFilterService.build_conditions_from_params({ :name => 'britton' })
+        conditions = @event_filter_service.send(:build_conditions_from_params, { :name => 'britton' })
 
         assert_same_elements(["title like :name", { :name => 'britton' }], conditions)
       end
       
       should("build the correct conditions when the build_conditions_from_params method is given a date param") do
         now = Time.now
-        conditions = EventFilterService.build_conditions_from_params({ :date => now })
+        conditions = @event_filter_service.send(:build_conditions_from_params, { :date => now })
 
         assert_same_elements([":date between start_date_time and end_date_time", { :date => now }], conditions)
       end
 
       should("build the correct conditions when the build_conditions_from_params method is given a date and name param") do
         now = Time.now
-        conditions = EventFilterService.build_conditions_from_params({ :date => now, :name => 'britton' })
+        conditions = @event_filter_service.send(:build_conditions_from_params, { :date => now, :name => 'britton' })
 
         assert_same_elements(["title like :name and :date between start_date_time and end_date_time", { :name => 'britton', :date => now }], conditions)
       end
     end
 
-    context('EventFilterService filter_events method') do
-      should("return all events of the correct named scope when the filter_events method is sent no params") do
-        event = Factory.build(:event)
-        event.title = 'filter events test'
-        event.open_registration
-        event.save
+    context('EventFilterService') do
+      context('search_open') do
+        should("return all open events when no params are sent") do
+          event = Factory.build(:event)
+          event.title = 'filter events test'
+          event.open_registration
+          event.save
       
-        events = @event_filter_service.filter_events({}, :registration_open)
+          events = @event_filter_service.search_open()
       
-        assert events.select{ |event| event.title == 'filter events test' }.any?
-        assert_equal Event.registration_open.length, events.length
-      end
+          assert events.select{ |event| event.title == 'filter events test' }.any?
+          assert_equal Event.registration_open.length, events.length
+        end
 
-      should("return all events of the correct named scope with the correct name when the filter_events method is sent a name param") do
-        event = Factory.build(:event)
-        event.title = 'filter events test'
-        event.open_registration
-        event.save
+        should("return all events based on a name sent to the method") do
+          event = Factory.build(:event)
+          event.title = 'filter events test'
+          event.open_registration
+          event.save
       
-        events = @event_filter_service.filter_events({ :name => 'filter events test' }, :registration_open)
+          events = @event_filter_service.search_open({ :name => 'filter events test' })
       
-        assert events.select{ |event| event.title == 'filter events test' }.any?
-        assert_equal Event.registration_open.find_all_by_title('filter events test').length, events.length
+          assert events.select{ |event| event.title == 'filter events test' }.any?
+          assert_equal Event.registration_open.find_all_by_title('filter events test').length, events.length
+        end
       end
     end
   end
