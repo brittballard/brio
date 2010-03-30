@@ -1,9 +1,9 @@
 class EventCreationService
   def initalize(event_klass)
-    @user_klass = event_klass
+    @event_klass = event_klass
   end
   
   def create(params)
-    @user_klas.create(params)
+    @event_klass.create(params)
   end
 end

@@ -1,8 +1,7 @@
 require 'test_helper'
 
 class JobTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
-  end
+  should_validate_presence_of(:description, :start_date_time, :end_date_time, :address_line_1, :city, :state, :postal_code)
+  
+  
 end
