@@ -7,8 +7,8 @@ class SignupsController < ApplicationController
     @signup = Signup.new(params[:signup])
     @signup.event = Event.find(@signup.event_id)
     debugger
-    @signup.user = @signup.user_id.present? ? User.find(@signup.user_id) : User.new(params[:event])
-debugger
+    @signup.user = @signup.user_id.present? ? User.find(@signup.user_id) : User.new(params[:user])
+
     cookies[@signup.event_id] = @signup.accepted_terms
     
     if @signup.save

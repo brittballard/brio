@@ -2,13 +2,13 @@ class User < ActiveRecord::Base
   include AASM
   
   def age
-    age = Date.today.year - read_attribute(:birthday).year
-    debugger
+    mage = Date.today.year - read_attribute(:birthday).year
+    
     if Date.today.month < read_attribute(:birthday).month || 
     (Date.today.month == read_attribute(:birthday).month && read_attribute(:birthday).day >= Date.today.day)
-      age = age - 1
+      mage = mage - 1
     end
-    age
+    mage
   end
   
   acts_as_authentic

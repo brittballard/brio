@@ -16,8 +16,8 @@
     </li>
     <li>
             
-        <%= label_tag "When is your birthday?" %>
-        <%= render(:partial => 'layouts/datetime_select', :locals => { :date_type => 'birthday', :value => current_user.present? ? current_user.birthday : nil, :show_time => false }) %>
+        <%= label :birthday, "When is your birthday?" %>
+        <%= render :partial => 'layouts/datetime_select', :locals => { :date_type => 'birthday', :value => current_user.present? ? current_user.birthday : nil, :show_time => false } %>
     </li>
     <li>
         <%= f.label :accepted_terms, "Do you agree to these terms?" %>
