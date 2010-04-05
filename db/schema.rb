@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100330005708) do
+ActiveRecord::Schema.define(:version => 20100330020842) do
 
   create_table "events", :force => true do |t|
     t.string   "title"
@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(:version => 20100330005708) do
     t.datetime "updated_at"
     t.string   "user_state",                                       :null => false
     t.string   "default_time_zone",   :limit => 40
-    t.date     "birthday",                                         :null => false
+    t.date     "birthday_date",                                    :null => false
   end
 
 end

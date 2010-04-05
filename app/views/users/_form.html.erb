@@ -1,15 +1,34 @@
-<%= form.label(:email) %><br />
-<%= form.text_field(:email) %><br />
-<br />
-<%= form.label(:default_time_zone) %><br />
-<%= select('user', 'default_time_zone', time_zone_options_for_select()) %><br />
-<br />
-<%= form.label(:password, form.object.new_record? ? nil : "Change password") %><br />
-<%= form.password_field(:password) %><br />
-<br />
-<%= form.label(:password_confirmation) %><br />
-<%= form.password_field(:password_confirmation) %><br />
+<%= form.label(:email) %>
+<br/>
+<%= form.text_field(:email) %>
+<br/>
+<br/>
+<%= form.label(:default_time_zone) %>
+<br/>
+<%= select('user', 'default_time_zone', time_zone_options_for_select()) %>
+<br/>
+<br/>
+<% if show_password_toggle %>
+<%= check_box_tag("show_password") %>
+<% end %>
+<div id="password_container">
+    <%= form.label(:password, form.object.new_record? ? nil : "Change password") %>
+    <br/>
+    <%= form.password_field(:password) %>
+    <br/>
+    <br/>
+    <%= form.label(:password_confirmation) %>
+    <br/>
+    <%= form.password_field(:password_confirmation) %>
+    <br/>
+</div>
 <%=
 @jobs = Job.all
-collection_select("Description", "job_id", @jobs, :id, :description )
-%>
+collection_select("Description", "job_id", @jobs, :id, :description ) %>
+<% if show_password_toggle %>
+<script>
+    $("#user_show_password").change(function(){
+        $("#password_container").toggle();
+    })
+</script>
+<% end %>
