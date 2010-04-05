@@ -1,5 +1,5 @@
 <div id='job'>
-  <% form_for(@job) do |form| %>
+  <% form_for([@event, @job]) do |form| %>
     <div id='main'>
       <ul>
         <li>
@@ -9,24 +9,39 @@
           <%= form.text_field(:title) %>
         </li>
         <li>
-          <% form.label(:description) %>
+          <%= form.label(:description) %>
         </li>
         <li>
-          <% form.text_field(:description) %>
+          <%= form.text_area(:description) %>
         </li>
         <li>
-          <% form.label(:lat) %>
+          <%= form.label(:start_date_time) %>
         </li>
         <li>
-          <% form.text_field(:lat) %>
+          <%= render(:partial => 'layouts/datetime_select', :locals => { :date_type => 'start', :value => @job.start_date_time, :show_time => true, :object_klass => 'job' }) %>
         </li>
         <li>
-          <% form.label(:lng) %>
+          <%= form.label(:end_date_time) %>
         </li>
         <li>
-          <% form.text_field(:lng) %>
+          <%= render(:partial => 'layouts/datetime_select', :locals => { :date_type => 'end', :value => @job.start_date_time, :show_time => true, :object_klass => 'job' }) %>
+        </li>
+        <li>
+          <%= form.label(:number_of_volunteers_required) %>
+        </li>
+        <li>
+          <%= form.text_field(:number_of_volunteers_required) %>
         </li>
       </ul>
     </div>
+    <%= render(:partial => 'layouts/address', :locals => { :form => form }) %>
+    <p>
+      <%= form.submit 'Create' %>
+    </p>
   <% end %>
 </div>
+<script>
+  $(document).ready(function() {
+    brio.utility.register_date_picker([$('#start_date_picker'), $('#end_date_picker')])
+  })
+</script>

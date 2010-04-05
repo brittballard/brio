@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100330020842) do
+ActiveRecord::Schema.define(:version => 20100330041201) do
 
   create_table "events", :force => true do |t|
     t.string   "title"
@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(:version => 20100330020842) do
     t.integer  "event_id",                                     :null => false
     t.datetime "start_date_time"
     t.datetime "end_date_time"
-    t.string   "lat",                           :limit => 50
-    t.string   "lng",                           :limit => 50
+    t.string   "latitude",                      :limit => 50
+    t.string   "longitude",                     :limit => 50
     t.string   "address_line_1",                :limit => 100
     t.string   "address_line_2",                :limit => 100
     t.string   "city",                          :limit => 50
