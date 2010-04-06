@@ -7,7 +7,7 @@ class Signup < ActiveRecord::Base
   validate :age_of_user_is_greater_than_minimum_age_of_event
   
   def age_of_user_is_greater_than_minimum_age_of_event
-    errors.add(:user.birthday, "must be greater than the event's minimum age") if
+    errors.add(user.birthday_date, "must be greater than the event's minimum age") if
     user.age < event.minimum_age_to_register
   end
   

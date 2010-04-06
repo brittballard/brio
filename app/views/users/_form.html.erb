@@ -8,26 +8,31 @@
 <%= select('user', 'default_time_zone', time_zone_options_for_select()) %>
 <br/>
 <br/>
-<% if show_password_toggle %>
-<%= check_box_tag("show_password") %>
+<% if show_password %>
+    <% if show_password_toggle %>
+        <%= label_tag("Save this account for later use") %>
+        <%= check_box_tag("show_password", "1", true) %>
+    <% end %>
+    <div id="password_container">
+        <%= form.label(:password, form.object.new_record? ? nil : "Change password") %>
+        <br/>
+        <%= form.password_field(:password) %>
+        <br/>
+        <br/>
+        <%= form.label(:password_confirmation) %>
+        <br/>
+        <%= form.password_field(:password_confirmation) %>
+        <br/>
+    </div>
 <% end %>
-<div id="password_container">
-    <%= form.label(:password, form.object.new_record? ? nil : "Change password") %>
-    <br/>
-    <%= form.password_field(:password) %>
-    <br/>
-    <br/>
-    <%= form.label(:password_confirmation) %>
-    <br/>
-    <%= form.password_field(:password_confirmation) %>
-    <br/>
-</div>
+<div id="jobs_container">
 <%=
 @jobs = Job.all
 collection_select("Description", "job_id", @jobs, :id, :description ) %>
+</div>
 <% if show_password_toggle %>
 <script>
-    $("#user_show_password").change(function(){
+    $("#show_password").change(function(){
         $("#password_container").toggle();
     })
 </script>

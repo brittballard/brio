@@ -8,14 +8,14 @@ class SignupsController < ApplicationController
     @signup.event = Event.find(@signup.event_id)
     
     @signup.user = @signup.user_id.present? ? User.find(@signup.user_id) : User.new(params[:user])
-
+    
     cookies[@signup.event_id] = @signup.accepted_terms
     
     if @signup.save
       flash[:notice] = "Nice work buddy"
       redirect_to register_signup_path(@signup)
     else
-      flash[:notice] = "You suck wanker"
+      redirect_to authorize_event_signups_path(@signup.event)
     end
   end
   

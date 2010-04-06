@@ -2,11 +2,10 @@ class User < ActiveRecord::Base
   include AASM
   
   def age
-    debugger
-    mage = Date.today.year - read_attribute(:birthday_date).year
+    mage = Date.today.year - birthday_date.year
     
-    if Date.today.month < read_attribute(:birthday_date).month || 
-    (Date.today.month == read_attribute(:birthday_date).month && read_attribute(:birthday_date).day >= Date.today.day)
+    if Date.today.month < birthday_date.month || 
+    (Date.today.month == birthday_date.month && birthday_date.day >= Date.today.day)
       mage = mage - 1
     end
     mage

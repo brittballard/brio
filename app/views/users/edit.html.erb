@@ -2,7 +2,7 @@
  
 <% form_for @user, :url => account_path do |f| %>
   <%= f.error_messages %>
-  <%= render :partial => "form", :object => f, :locals => { :show_password_toggle => false } %>
+  <%= render :partial => "form", :object => f, :locals => { :show_password => true, :show_password_toggle => false } %>
   <%= f.submit "Update" %>
 <% end %>
  
