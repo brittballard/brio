@@ -1,15 +1,10 @@
 class Signup < ActiveRecord::Base
   include AASM
   
-  has_one :user
-  has_one :event
+  belongs_to :user
+  belongs_to :event
   
   validate :age_of_user_is_greater_than_minimum_age_of_event
-  
-  def age_of_user_is_greater_than_minimum_age_of_event
-    errors.add(user.birthday_date, "must be greater than the event's minimum age") if
-    user.age < event.minimum_age_to_register
-  end
   
   # aasm stuff
   aasm_column :signup_state
@@ -41,4 +36,9 @@ class Signup < ActiveRecord::Base
   aasm_event :abandon do
     transitions :to => :abandoned, :from => [:authorize, :register, :pay, :complete]
   end
+  
+  private
+    def age_of_user_is_greater_than_minimum_age_of_event
+      errors.add(user.birthday_date, "must be greater than the event's minimum age") if user.age < event.minimum_age_to_register
+    end
 end

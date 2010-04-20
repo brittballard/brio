@@ -19,8 +19,7 @@ class EventsController < ApplicationController
   end
 
   def search_open
-    event_filter_service = EventFilterService.new(Event)
-    @events = event_filter_service.search_open(params)
+    @events = Event.search_open(params)
     
     respond_to do |format|
       format.html
@@ -28,8 +27,7 @@ class EventsController < ApplicationController
   end
 
   def search_my
-    event_filter_service = EventFilterService.new(Event)
-    @events = event_filter_service.search_my(params)
+    @events = Event.search_my(params)
 
     respond_to do |format|
       format.html
@@ -37,8 +35,7 @@ class EventsController < ApplicationController
   end
 
   def search_results
-    event_filter_service = EventFilterService.new(Event)
-    @events = event_filter_service.search_results(params)
+    @events = Event.search_results(params)
     
     respond_to do |format|
       format.html

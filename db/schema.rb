@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(:version => 20100330041201) do
     t.datetime "registration_end_date_time"
     t.datetime "start_date_time",                                                           :null => false
     t.datetime "end_date_time",                                                             :null => false
-    t.string   "time_zone",                    :limit => 40
     t.integer  "registration_fee",             :limit => 10, :precision => 10, :scale => 0, :null => false
     t.text     "description",                                                               :null => false
     t.integer  "max_participants"
@@ -33,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20100330041201) do
     t.integer  "parent_id"
     t.integer  "minimum_age_to_register"
     t.integer  "minimum_age_to_participate"
+    t.string   "time_zone",                    :limit => 40,                                :null => false
     t.string   "latitude",                     :limit => 40
     t.string   "longitude",                    :limit => 40
   end
@@ -114,8 +114,8 @@ ActiveRecord::Schema.define(:version => 20100330041201) do
     t.string   "last_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "user_state",                                       :null => false
     t.string   "default_time_zone",   :limit => 40
+    t.string   "user_state",                                       :null => false
     t.date     "birthday_date",                                    :null => false
   end
 

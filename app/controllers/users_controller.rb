@@ -8,6 +8,7 @@ class UsersController < ApplicationController
   
   def new
     @user = User.new
+    @jobs = Job.all
   end
   
   def create

@@ -1,3 +1,6 @@
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag "brio.users.js" %>
+<% end %>
 <%= form.label(:email) %>
 <br/>
 <%= form.text_field(:email) %>
@@ -26,14 +29,5 @@
     </div>
 <% end %>
 <div id="jobs_container">
-<%=
-@jobs = Job.all
-collection_select("Description", "job_id", @jobs, :id, :description ) %>
+  <%= collection_select("Description", "job_id", @jobs, :id, :description ) %>
 </div>
-<% if show_password_toggle %>
-<script>
-    $("#show_password").change(function(){
-        $("#password_container").toggle();
-    })
-</script>
-<% end %>

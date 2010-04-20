@@ -1,5 +1,8 @@
 require("spec_helper.js");
-require("../../public/javascripts/brio.js");
+require("../../public/javascripts/application.js");
+require("../../public/javascripts/brio.utility.js");
+require("../../public/javascripts/brio.utility.map.js");
+require("../../public/javascripts/brio.utility.pano.js");
 
 Screw.Unit(function() {
   describe("brio", function() {

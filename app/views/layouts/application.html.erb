@@ -3,7 +3,8 @@
     <head>
         <title><%= h(yield(:title) || "Brio") %></title>
         <%= stylesheet_link_tag('brio', :media => 'all') %>
-        <%= javascript_include_tag('jquery', 'jquery.ui.core', 'jquery.ui.datepicker', 'application', 'brio') %>
+        <%= javascript_include_tag('jquery', 'jquery.ui.core', 'jquery.ui.datepicker', 'application', 'brio.utility') %>
+        <%= yield :javascript_includes %>
         <script type="text/javascript" src="http://maps.google.com/maps?file=api&amp;v=3&amp;key=<%= AppConfig.google_maps_api  %>&sensor=false"></script>
         </script>
     </head>

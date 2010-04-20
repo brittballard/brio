@@ -11,7 +11,8 @@ class Event < ActiveRecord::Base
   
   has_and_belongs_to_many :registrants, :join_table => 'events_registrants', :class_name => 'User'
   has_and_belongs_to_many :volunteers, :join_table => 'events_jobs_registrants', :class_name => 'User'
-  has_and_belongs_to_many :signups, :join_table => 'events_signups', :class_name => 'User'
+  has_many :signups
+  has_many :users, :through => :signups
   has_one :map, :dependent => :destroy
   
   named_scope :setup, :conditions => {:event_state => 'setup'}
@@ -62,15 +63,59 @@ class Event < ActiveRecord::Base
     self.send("#{date_type}_date_time=", DateTime.parse(self.send("#{date_type}_date") + ' ' + self.send("#{date_type}_hour") + ':' + self.send("#{date_type}_minute")))
   end
 
-  private
+  def self.search_open(params={})
+    filter_events(params, :registration_open)
+  end
   
-  def is_complete?
-    # are all the fields ready to go
-    return true
+  def self.search_my(params={})
+    all(:joins => :registrants, :conditions => build_conditions_from_params(params))
+  end
+  
+  def self.search_results(params={})
+    filter_events(params, :complete)
   end
 
-  def validate
-    errors.add(:start_date_time, "must be before end date.") if start_date_time.present? && end_date_time.present? && start_date_time >= end_date_time
-    errors.add(:registration_start_date_time, "must be before registration end date") if registration_start_date_time.present? && registration_end_date_time.present? && registration_start_date_time >= registration_end_date_time
-  end
+  private  
+    def is_complete?
+      # are all the fields ready to go
+      return true
+    end
+
+    def validate
+      errors.add(:start_date_time, "must be before end date.") if start_date_time.present? && end_date_time.present? && start_date_time >= end_date_time
+      errors.add(:registration_start_date_time, "must be before registration end date") if registration_start_date_time.present? && registration_end_date_time.present? && registration_start_date_time >= registration_end_date_time
+    end
+    
+    def self.filter_events(params, filter_named_scope)
+      conditions = build_conditions_from_params(params)
+
+      if conditions.any?
+        events = send(filter_named_scope).all(:conditions => conditions)
+      else
+        events = send(filter_named_scope)
+      end
+
+      events
+    end
+
+    def self.build_conditions_from_params(params)
+      conditions = []
+      conditions_params = {}
+
+      if params[:name].present?
+        conditions << "title like :name"
+        conditions_params.merge!({ :name => params[:name]})
+      end
+
+      if params[:date].present?
+        conditions << ":date between start_date_time and end_date_time"
+        conditions_params.merge!({ :date => params[:date]})
+      end
+
+      if params[:location].present?
+        # what are we doing with locations
+      end
+
+      [conditions.any? ? conditions.join(' and ') : nil, conditions_params.any? ? conditions_params : nil].compact
+    end
 end

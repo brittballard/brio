@@ -38,6 +38,16 @@ div#map_canvas {
     height: 300px;
 }
 
+div#disclaimer{
+  height: 300px; 
+  width: 490px; 
+  overflow: auto; 
+  overflow-y: hidden; 
+  border-style: solid; 
+  border-width: 1px; 
+  border-color: black;
+}
+
 #footer {
     position: absolute;
     bottom: 0;

@@ -5,12 +5,12 @@ class SignupsController < ApplicationController
   
   def go_register
     @signup = Signup.new(params[:signup])
-    @signup.event = Event.find(@signup.event_id)
     
-    @signup.user = @signup.user_id.present? ? User.find(@signup.user_id) : User.new(params[:user])
-    @signup.user.user_state = "pending"
-    @signup.user.email = ""
-    @signup.user.save(false)
+    unless @signup.user.present?
+      @signup.user = User.new(params[:user])
+      @signup.user.user_state = "pending"
+      @signup.user.save(false)
+    end
       
     cookies[@signup.event_id] = @signup.accepted_terms
     
@@ -24,14 +24,15 @@ class SignupsController < ApplicationController
   
   def register
     @signup = Signup.find(params[:id])
-      
-    if cookies[@signup.event_id].nil? or cookies[@signup.event_id].empty? or cookies[@signup.event_id] == false
+    
+    unless cookies[@signup.event_id].present? && cookies[@signup.event_id]
       redirect_to events_path
       flash[:notice] = "You didn't accept the terms."
     else
       #need to verify this is a valid signup for the current user
       #also need to hook up being able to sign in from here, and populate data from the signed in user, if possible
       @user = @signup.user
+      @jobs = Job.all
     end
   end
   
@@ -39,8 +40,7 @@ class SignupsController < ApplicationController
     #@user = User.new(params[:user])
     @signup = Signup.find(params[:id])
     
-    if @current_user.nil? and params[:show_password]["show_password"] == "0"
-      debugger
+    if @current_user.nil? && params[:show_password]["show_password"] == "0"
       @user.save(false)
       @signup.user_id = @user.id
       @signup.user = @user
@@ -59,7 +59,6 @@ class SignupsController < ApplicationController
   end
   
   def pay
-    debugger
     @signup = Signup.find(params[:id])
   end
 end

@@ -3,7 +3,7 @@ your signup id is... <%= @signup.id %>
 <br /><br />
 <% form_for(@user, :url => go_pay_signup_path(@signup)) do |f| %>
   <%= f.error_messages %>
-  <%= render(:partial => "users/form", :object => f, :locals => { :show_password => current_user.present? ? false : true, :show_password_toggle => true } )%>
-  <%= f.submit("Go pay", :action => "go_pay") %>
+  <%= render(:partial => "users/form", :object => f, :locals => { :show_password => !current_user.present?, :show_password_toggle => true } )%>
+  <%= f.submit("Go pay") %>
 <% end %>
 <br />

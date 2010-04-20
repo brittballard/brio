@@ -25,6 +25,6 @@ Factory.define(:job) do |job|
   job.city("Dallas")
   job.state("TX")
   job.postal_code(75206)
-  job.association(:event)
   job.number_of_volunteers_required(10)
+  job.association(:event)
 end
