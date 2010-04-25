@@ -5,11 +5,12 @@ ActionController::Routing::Routes.draw do |map|
   map.logout "logout", :controller => "user_sessions", :action => "destroy"
   
   map.resource :account, :controller => "users"
-  map.resources :events, :collection => { :search_open => [:post, :get], :search_my => [:post, :get], :search_results => [:post, :get] }, :has_many => :users do |event|
+  map.resources :events, :member => { :dash_board => :get }, :collection => { :search_open => [:post, :get], :search_my => [:post, :get], :search_results => [:post, :get] }, :has_many => :users do |event|
     event.resources :jobs, :only => [:new, :create]
     event.resources :users, :collection => { :add_to_event => [:post] }, :only => [:add_to_event]
     event.resources :signups, :collection => { :authorize => [:get], :go_register => [:post] }, :only => [:authorize]
   end
+  
   map.resources :jobs, :only => [:show, :index]
   map.resources :maps
   map.resources :map_datapoints
